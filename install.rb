@@ -7,16 +7,13 @@ $(function() {
   var initialValue = '';
 
   $('input.better_text_field').focus(function() {
-    /* If this field has not been completed */
-    if (!$(this).hasClass('better_completed_field')) {
-      initialValue = this.value;
-      this.value = '';
-    }
+		initialValue = this.value;
+		this.value = '';
   });
 
   $('input.better_text_field').blur(function() {
-    /* Reset the fields initial value if it wasn't filled it */
-    if (this.value == '') {
+    /* Reset the fields initial value if it is required and wasn't filled it */
+    if ($(this).hasClass('better_required_field') && (this.value == '')) {
       this.value = initialValue;
     } else {
       $(this).addClass('better_completed_field');
