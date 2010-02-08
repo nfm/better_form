@@ -13,6 +13,10 @@ module BetterForm
 			end
 			InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + (required_span ||= '') + tag('br')
 		end
+
+		def submit(value = '', options = {})
+			super(value || @object.new_record? ? "Create #{@object_name}" : "Save changes", options)
+		end
 	end
 
 	class InstanceTag < ActionView::Helpers::InstanceTag
