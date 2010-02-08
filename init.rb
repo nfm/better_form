@@ -1,1 +1,1 @@
-require 'better_forms'
+require 'better_form'
