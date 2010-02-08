@@ -18,6 +18,11 @@ module BetterForm
 						margin-bottom: 10px
 					}
 
+					input.better_completed_field {
+						border: 1px solid #666;
+						color: #333;
+					}
+
 					input.better_text_field:focus {
 						border: 1px solid #666;
 						color: #333;
