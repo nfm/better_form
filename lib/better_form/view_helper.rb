@@ -28,6 +28,11 @@ module BetterForm
 						color: #333;
 						background-color: #FDFFCF;
 					}
+
+					span.better_required_field {
+						color: #FF4F4F;
+					}
+
 				EOT
 				return css
 			end
