@@ -29,5 +29,17 @@ $(function() {
   });
 
 });
+
+function shake(id) {
+  var id = '#' + id;
+  $(id).css({'position': 'relative'});
+  $(id).animate({'left': '-=3px'}, 30);
+  $(id).animate({'left': '+=6px'}, 60);
+  $(id).animate({'left': '-=6px'}, 60);
+  $(id).animate({'left': '+=6px'}, 60);
+  $(id).animate({'left': '-=6px'}, 60);
+  $(id).animate({'left': '+=6px'}, 60);
+  $(id).animate({'left': '0px'}, 30);
+}
 EOS
 end
