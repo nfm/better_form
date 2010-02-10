@@ -7,12 +7,22 @@ module BetterForm
 		end
 
 		module ClassMethods
-			def better_valid_on?(params)
-				# What class is this?
-				class_name = self.class_name.parameterize.to_s
-				# Pull the necessary fields out of params
-				object = self.new(params[class_name])
-				return object.valid?
+			def better_valid_on?(attribute)
+				# Create a new object using the given attribute
+				object = self.new(attribute)
+				# If the object is valid, return true
+				if object.valid?
+					return true
+				else
+					# Pull out the object's @errors hash
+					errors = object.errors.instance_variable_get("@errors")
+					# If there was an error for this attribute, return false
+					if errors.include?(attribute.keys[0])
+						false
+					else
+						true
+					end
+				end
 			end
 		end
 	end

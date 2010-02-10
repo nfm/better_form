@@ -17,7 +17,7 @@ module BetterForm
 							page.select("##{params[:field_id]} + .better_invalid_field").remove()
 							page.select("##{params[:field_id]} + .better_valid_field").remove()
 							# If the model is valid on the given attribute
-							if model.to_s.camelize.constantize.better_valid_on?(params)
+							if model.to_s.camelize.constantize.better_valid_on?(params[model])
 								page.insert_html :after, params[:field_id], '<span class="better_valid_field"></span>'
 							else
 								page.insert_html :after, params[:field_id], '<span class="better_invalid_field"></span>'
