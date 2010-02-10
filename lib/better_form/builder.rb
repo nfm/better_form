@@ -21,7 +21,8 @@ module BetterForm
 		end
 
 		def submit(value = '', options = {})
-			super(value || @object.new_record? ? "Create #{@object_name}" : "Save changes", options)
+			options[:disabled] = true unless options[:disabled] == false
+			super(value || (@object.new_record? ? "Create #{@object_name}" : "Save changes"), options)
 		end
 	end
 
