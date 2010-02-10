@@ -8,7 +8,7 @@ module BetterForm
 			options[:value] = human_readable_method
 			options[:title] = human_readable_method
 
-			if options.delete(:required)
+			if options.delete(:required) || @template.require_all?
 				options[:class] = "#{options[:class]} better_required_field"
 				required_span = content_tag_string(:span, "&nbsp;&#42;", { :class => 'better_required_field' })
 			end
@@ -22,7 +22,10 @@ module BetterForm
 
 		def submit(value = '', options = {})
 			options[:disabled] = true unless options[:disabled] == false
-			super(value || (@object.new_record? ? "Create #{@object_name}" : "Save changes"), options)
+			if value.blank?
+				value = (@object.new_record? ? "Create #{@object_name}" : "Save changes")
+			end
+			super(value, options)
 		end
 	end
 
