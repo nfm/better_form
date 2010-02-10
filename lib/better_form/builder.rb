@@ -13,7 +13,7 @@ module BetterForm
 				required_span = content_tag_string(:span, "&nbsp;&#42;", { :class => 'better_required_field' })
 			end
 
-			if options.delete(:validated)
+			if options.delete(:validated) || @template.validate_all?
 				options[:class] = "#{options[:class]} better_validated_field"
 			end
 

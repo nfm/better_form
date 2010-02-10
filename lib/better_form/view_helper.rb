@@ -3,12 +3,17 @@ module BetterForm
 		def better_form_for(record_or_name_or_array, *args, &proc)
 			options = args.extract_options!.reverse_merge(:builder => BetterForm::Builder)
 			@require_all = true if options[:require_all] = true
+			@validate_all = true if options[:validate_all] = true
 			form_for(record_or_name_or_array, *(args << options), &proc)
 			@template.concat(better_form_stylesheet)
 		end
 
 		def require_all?
 			@require_all
+		end
+
+		def validate_all?
+			@validate_all
 		end
 
 		private
