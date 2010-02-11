@@ -17,7 +17,13 @@ module BetterForm
 				options[:class] = "#{options[:class]} better_validated_field"
 			end
 
-			InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + (required_span ||= '') + tag('br')
+			if options.delete(:labelled)
+				label = label(method, human_readable_method, :class => 'better_label') + tag('br')
+				# Set the field's default value to blank
+				options[:value] = ''
+			end
+
+			(label ||= '') + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + (required_span ||= '') + tag('br')
 		end
 
 		def submit(value = '', options = {})

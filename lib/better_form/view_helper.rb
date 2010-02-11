@@ -68,6 +68,10 @@ module BetterForm
 						color: #FF3F3F;
 					}
 
+					label.better_label {
+						color: #666;
+					}
+
 				EOT
 				return css
 			end
