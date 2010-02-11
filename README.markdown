@@ -20,15 +20,15 @@ Install
 Usage
 -----
 
-Include `public/javascripts/better_form.js` after jQuery:
+Include `public/javascripts/better_form.js` after jQuery and jRails:
 
-		<%= javascript_include_tag 'jquery', 'better_form' %>
+		<%= javascript_include_tag 'jquery', 'jrails', 'better_form' %>
 
 You can then generate a better form using the `better_form_for` method:
 
 		<% better_form_for @project do |f| %>
 
-Form fields have a `<br />` appended after them. They can be `:validated`, `:labelled`, and `:required`.
+Form fields have a `<br />` appended after them. They can be `:validated`, `:labelled` and `:required`. Fields without labels have their initial `value` set to the method they are associated with.
 
 * A validated field has the class 'better_validated_field' added to its list of class names:
 
@@ -40,11 +40,13 @@ Form fields have a `<br />` appended after them. They can be `:validated`, `:lab
 		<%= f.text_field :first_name, :required => true %>
 		<input class="better_text_field  better_required_field" id="person_first_name" name="person[first_name]" size="30" title="First name" type="text" value="First name" /><span class="better_required_field">&nbsp;*</span><br />
 
-I A labelled field has a label prepended to it:
+* A labelled field has a label prepended to it:
 
 		<%= f.text_field :first_name, :labelled => true %>
 		<label class="better_label" for="person_first_name">First name</label><br />
 		...
+
+Alternatively, you can pass `:validate_all`, `:label_all` and `:require_all` as options to `better_form_for` to apply the given options to every field.
 
 The javascript file better_form.js watches validated fields and calls their (generated) controller method to validate them when they are changed. This method returns an inline notification of the validity of the field.
 
