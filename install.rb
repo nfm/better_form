@@ -25,7 +25,8 @@ $(function() {
   });
 
   $('input.better_validated_field').blur(function() {
-    $.ajax({data:'authenticity_token=' + encodeURIComponent('iH4oAzNSO8OUiyFjVksfIdjEzmiWbL5BfM3mgp4rws4=')+ '&' + this.name + '=' + this.value + '&field_id=' + this.id, dataType:'script', type:'post', url: 'ajax_validate_' + this.id});
+    $.ajax({data:'authenticity_token=' + encodeURIComponent('iH4oAzNSO8OUiyFjVksfIdjEzmiWbL5BfM3mgp4rws4=')+ '&' + this.name + '=' + this.value + '&field_id=' + this.id, dataType:'script', type:'post', url: 'ajax_validate_' + this.id, async: false});
+    checkFormIsCompleted(this.form);
   });
 
 });
@@ -40,6 +41,26 @@ function shake(id) {
   $(id).animate({'left': '-=6px'}, 60);
   $(id).animate({'left': '+=6px'}, 60);
   $(id).animate({'left': '0px'}, 30);
+}
+
+function checkFormIsCompleted(form) {
+  var validForm = false;
+  var form = "#" + form.id;
+  var validatedFields = $(form + ' > input.better_validated_field');
+  // For each validated field
+  for (i = 0; i < validatedFields.length; i++) {
+    // If any field is invalid, disable the form submit button
+    if ($(validatedFields[i]).hasClass('better_invalid_field')) {
+      $(form + ' :submit').disable();
+      return;
+		// If the field is valid, set validForm to true
+    } else if ($(validatedFields[i]).hasClass('better_valid_field')) {
+      validForm = true;
+    }
+  }
+  if (validForm == true) {
+    $(form + ' :submit').enable();
+  }
 }
 EOS
 end
