@@ -17,7 +17,7 @@ module BetterForm
 				options[:class] = "#{options[:class]} better_validated_field"
 			end
 
-			if options.delete(:labelled)
+			if options.delete(:labelled) || @template.label_all?
 				label = label(method, human_readable_method, :class => 'better_label') + tag('br')
 				# Set the field's default value to blank
 				options[:value] = ''

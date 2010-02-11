@@ -4,6 +4,7 @@ module BetterForm
 			options = args.extract_options!.reverse_merge(:builder => BetterForm::Builder)
 			@require_all = true if options[:require_all] = true
 			@validate_all = true if options[:validate_all] = true
+			@label_all = true if options[:label_all] = true
 			form_for(record_or_name_or_array, *(args << options), &proc)
 			@template.concat(better_form_stylesheet)
 		end
@@ -14,6 +15,10 @@ module BetterForm
 
 		def validate_all?
 			@validate_all
+		end
+
+		def label_all?
+			@label_all
 		end
 
 		private
