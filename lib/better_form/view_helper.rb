@@ -2,9 +2,9 @@ module BetterForm
 	module ViewHelper
 		def better_form_for(record_or_name_or_array, *args, &proc)
 			options = args.extract_options!.reverse_merge(:builder => BetterForm::Builder)
-			@require_all = true if options[:require_all] = true
-			@validate_all = true if options[:validate_all] = true
-			@label_all = true if options[:label_all] = true
+			@require_all = true ? options[:require_all] = true : false
+			@validate_all = true ? options[:validate_all] = true : false
+			@label_all = true ? options[:label_all] = true : false
 			form_for(record_or_name_or_array, *(args << options), &proc)
 			@template.concat(better_form_stylesheet)
 		end
