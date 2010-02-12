@@ -23,7 +23,11 @@ module BetterForm
 				options[:value] = ''
 			end
 
-			(label ||= '') + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + (required_span ||= '') + tag('br')
+			if description = options.delete(:description)
+				description_span = content_tag_string(:span, description, { :class => 'better_described_field' }) + tag('br')
+			end
+
+			(label ||= '') + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + (required_span ||= '') + tag('br') + (description_span ||= '')
 		end
 
 		def submit(value = '', options = {})

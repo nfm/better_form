@@ -77,6 +77,11 @@ module BetterForm
 						color: #666;
 					}
 
+					span.better_described_field {
+						color: #999;
+						font-size: 0.7em;
+					}
+
 				EOT
 				return css
 			end
