@@ -8,16 +8,16 @@ module BetterForm
 			options[:value] = human_readable_method
 			options[:title] = human_readable_method
 
-			if options.delete(:required) || @template.require_all?
+			if options.delete(:required) == true || @template.require_all?
 				options[:class] = "#{options[:class]} better_required_field"
 				required_span = content_tag_string(:span, "*", { :class => 'better_required_field' })
 			end
 
-			if options.delete(:validated) || @template.validate_all?
+			if options.delete(:validated) == true || @template.validate_all?
 				options[:class] = "#{options[:class]} better_validated_field"
 			end
 
-			if options.delete(:labelled) || @template.label_all?
+			if options.delete(:labelled) == true || @template.label_all?
 				label = label(method, human_readable_method, :class => 'better_label') + tag('br')
 				# Set the field's default value to blank
 				options[:value] = ''
