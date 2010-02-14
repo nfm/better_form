@@ -14,17 +14,17 @@ module BetterForm
 					define_method("ajax_validate_#{model}_#{attribute}") do
 						render :update do |page|
 							# Remove existing invalid/valid notifications
-							page.select("##{params[:field_id]} + .better_invalid_field").remove()
-							page.select("##{params[:field_id]} + .better_valid_field").remove()
+							page.select("##{params[:field_id]} ~ .better_invalid_field").remove()
+							page.select("##{params[:field_id]} ~ .better_valid_field").remove()
 							# If the model is valid on the given attribute
 							if model.to_s.camelize.constantize.better_valid_on?(params[model])
 								# Add an indicator that the input was valid
-								page.insert_html :after, params[:field_id], '<span class="better_valid_field"></span>'
+								page << "$('##{params[:field_id]} ~ .better_required_field').after('<span class=\"better_valid_field\"></span>');"
 								page << "$('##{params[:field_id]}').removeClass('better_invalid_field');"
 								page << "$('##{params[:field_id]}').addClass('better_valid_field');"
 							else
 								# Add an indicator that the input was invalid
-								page.insert_html :after, params[:field_id], '<span class="better_invalid_field"></span>'
+								page << "$('##{params[:field_id]} ~ .better_required_field').after('<span class=\"better_invalid_field\"></span>');"
 								page << "$('##{params[:field_id]}').removeClass('better_completed_field');"
 								page << "$('##{params[:field_id]}').addClass('better_invalid_field');"
 								page << "shake('#{params[:field_id]}');"
