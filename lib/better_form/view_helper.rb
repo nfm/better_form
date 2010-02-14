@@ -30,7 +30,6 @@ module BetterForm
 						border-bottom: 1px solid #DDD;
 						border-right: 1px solid #DDD;
 						color: #AAA;
-						margin-bottom: 10px
 					}
 
 					input.better_completed_field {
@@ -46,6 +45,7 @@ module BetterForm
 
 					span.better_required_field {
 						color: #FF4F4F;
+						margin-left: 0.25em;
 					}
 
 					span.better_valid_field, span.better_invalid_field {

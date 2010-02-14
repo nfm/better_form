@@ -10,7 +10,7 @@ module BetterForm
 
 			if options.delete(:required) || @template.require_all?
 				options[:class] = "#{options[:class]} better_required_field"
-				required_span = content_tag_string(:span, "&nbsp;&#42;", { :class => 'better_required_field' })
+				required_span = content_tag_string(:span, "*", { :class => 'better_required_field' })
 			end
 
 			if options.delete(:validated) || @template.validate_all?
@@ -27,7 +27,7 @@ module BetterForm
 				description_span = content_tag_string(:span, description, { :class => 'better_described_field' }) + tag('br')
 			end
 
-			(label ||= '') + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + (required_span ||= '') + tag('br') + (description_span ||= '')
+			content_tag_string(:p, (label ||= '') + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + (required_span ||= '') + tag('br') + (description_span ||= ''), { :class => 'better_field'})
 		end
 
 		def submit(value = '', options = {})
