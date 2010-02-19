@@ -33,6 +33,33 @@ module BetterForm
 			content_tag_string(:p, (label ||= '') + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + (required_span ||= '') + tag('br') + (description_span ||= ''), { :class => 'better_field'})
 		end
 
+		def select(method, choices, options = {}, html_options = {})
+			human_readable_method = method.to_s.gsub(/_/, " ").capitalize
+			html_options[:class] = "better_select_field #{html_options[:class]}"
+			html_options[:title] = human_readable_method
+			required = html_options.delete(:required)
+			validated = html_options.delete(:validated)
+			labelled = html_options.delete(:labelled)
+
+			if required == true || (required != false && @template.require_all?)
+				html_options[:class] = "#{html_options[:class]} better_required_field"
+				required_span = content_tag_string(:span, "*", { :class => 'better_required_field' })
+			end
+
+			if labelled == true || (labelled != false && @template.label_all?)
+				label = label(method, human_readable_method, :class => 'better_label') + tag('br')
+			else
+				# Add a disabled choice describing what the user is selecting
+				choices.insert(0, [human_readable_method, nil])
+			end
+
+			if description = html_options.delete(:description)
+				description_span = content_tag_string(:span, description, { :class => 'better_described_field' }) + tag('br')
+			end
+
+			content_tag_string(:p, (label ||= '') + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_select_tag(choices, options, html_options) + (required_span ||= '') + tag('br') + (description_span ||= ''), { :class => 'better_field'})
+		end
+
 		def submit(value = '', options = {})
 			options[:disabled] = true unless options[:disabled] == false
 			if value.blank?
