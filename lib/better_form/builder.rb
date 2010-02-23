@@ -3,7 +3,7 @@ module BetterForm
 		include ActionView::Helpers::TagHelper
 
 		def text_field(method, options = {})
-			human_readable_method = method.to_s.gsub(/_/, " ").capitalize
+			human_readable_method = generate_human_readable_method(method)
 			options[:class] = "better_text_field #{options[:class]}"
 			options[:value] = human_readable_method
 			options[:title] = human_readable_method
@@ -35,7 +35,7 @@ module BetterForm
 		end
 
 		def select(method, choices, options = {}, html_options = {})
-			human_readable_method = method.to_s.gsub(/_/, " ").capitalize
+			human_readable_method = generate_human_readable_method(method)
 			html_options[:class] = "better_select_field #{html_options[:class]}"
 			html_options[:title] = human_readable_method
 			required = html_options.delete(:required)
@@ -96,6 +96,9 @@ module BetterForm
 		end
 
 private
+		def setup_field(options)
+		end
+
 		def generate_human_readable_method(method)
 			method.to_s.gsub(/_/, " ").capitalize
 		end
