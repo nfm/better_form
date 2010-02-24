@@ -29,31 +29,25 @@ module BetterForm
 		end
 
 		def select(method, choices, options = {}, html_options = {})
-			human_readable_method = generate_human_readable_method(method)
-			html_options[:class] = "better_select_field #{html_options[:class]}"
-			html_options[:title] = human_readable_method
-			required = html_options.delete(:required)
-			validated = html_options.delete(:validated)
-			labelled = html_options.delete(:labelled)
-			required_span = label_tag = description_span = ''
+			setup_field(method, html_options)
 
-			if required == true || (required != false && @template.require_all?)
+			if required_field?
 				html_options[:class] = "#{html_options[:class]} better_required_field"
-				required_span = generate_required_span
+				@required_span = generate_required_span
 			end
 
-			if labelled == true || (labelled != false && @template.label_all?)
-				label_tag = generate_label(method, human_readable_method) + tag('br')
+			if labelled_field?
+				@label_tag = generate_label(method, @human_readable_method) + tag('br')
 			else
 				# Add a disabled choice describing what the user is selecting
-				choices.insert(0, [human_readable_method, nil])
+				choices.insert(0, [@human_readable_method, nil])
 			end
 
-			if description = html_options.delete(:description)
-				description_span = generate_description(description) + tag('br')
+			if described_field?
+				@description_span = generate_description(@description) + tag('br')
 			end
 
-			content_tag_string(:p, label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_select_tag(choices, options, html_options) + required_span + tag('br') + description_span, { :class => 'better_field'})
+			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_select_tag(choices, options, html_options) + @required_span + tag('br') + @description_span, { :class => 'better_field'})
 		end
 
 		def check_box(method, options = {}, checked_value = "1", unchecked_value = "0") 
