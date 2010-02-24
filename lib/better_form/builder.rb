@@ -56,7 +56,7 @@ private
 			@required_span = @label_tag = @description_span = ''
 			@required = options.delete(:required)
 			@validated = options.delete(:validated)
-			@label = options.delete(:labelled)
+			@label = options.delete(:label)
 			@description = options.delete(:description)
 			options[:class] ||= ''
 			options[:class] += " better_text_field"
