@@ -3,35 +3,29 @@ module BetterForm
 		include ActionView::Helpers::TagHelper
 
 		def text_field(method, options = {})
-			human_readable_method = generate_human_readable_method(method)
-			options[:class] = "better_text_field #{options[:class]}"
-			options[:value] = human_readable_method
-			options[:title] = human_readable_method
-			required = options.delete(:required)
-			validated = options.delete(:validated)
-			labelled = options.delete(:labelled)
-			required_span = label_tag = description_span = ''
+			setup_field(method, options)
 
-			if required == true || (required != false && @template.require_all?)
+			if required_field?
 				options[:class] = "#{options[:class]} better_required_field"
-				required_span = generate_required_span
+				@required_span = generate_required_span
 			end
 
-			if validated == true || (validated != false && @template.validate_all?)
+			if validated_field?
 				options[:class] = "#{options[:class]} better_validated_field"
 			end
 
-			if labelled == true || (labelled != false && @template.label_all?)
-				label_tag = generate_label(method, human_readable_method) + tag('br')
+			if labelled_field?
+				@label_tag = generate_label(method, @human_readable_method) + tag('br')
+			else
 				# Set the field's default value to blank
-				options[:value] = ''
+				options[:value] = @human_readable_method
 			end
 
-			if description = options.delete(:description)
-				description_span = generate_description(description) + tag('br')
+			if described_field?
+				@description_span = generate_description(@description) + tag('br')
 			end
 
-			content_tag_string(:p, label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + required_span + tag('br') + description_span, { :class => 'better_field'})
+			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + @required_span + tag('br') + @description_span, { :class => 'better_field'})
 		end
 
 		def select(method, choices, options = {}, html_options = {})
@@ -96,7 +90,31 @@ module BetterForm
 		end
 
 private
-		def setup_field(options)
+		def setup_field(method, options)
+			@human_readable_method = generate_human_readable_method(method)
+			@required_span = @label_tag = @description_span = ''
+			@required = options.delete(:required)
+			@validated = options.delete(:validated)
+			@labelled = options.delete(:labelled)
+			@description = options.delete(:description)
+			options[:class] = "better_text_field #{options[:class]}"
+			options[:title] = @human_readable_method
+		end
+
+		def required_field?
+			true if (@required == true || (@required != false && @template.require_all?))
+		end
+
+		def validated_field?
+			true if (@validated == true || (@validated != false && @template.validate_all?))
+		end
+
+		def labelled_field?
+			true if (@labelled == true || (@labelled != false && @template.label_all?))
+		end
+
+		def described_field?
+			true unless @description.blank?
 		end
 
 		def generate_human_readable_method(method)
