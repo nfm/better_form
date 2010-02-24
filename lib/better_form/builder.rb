@@ -58,6 +58,7 @@ private
 			@validated = options.delete(:validated)
 			@labelled = options.delete(:labelled)
 			@description = options.delete(:description)
+			options[:class] ||= ''
 			options[:class] += " better_text_field"
 			options[:title] = @human_readable_method
 
