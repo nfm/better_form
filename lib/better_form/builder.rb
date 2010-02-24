@@ -16,10 +16,6 @@ module BetterForm
 				options[:value] = @human_readable_method
 			end
 
-			if described_field?
-				@description_span = generate_description(@description) + tag('br')
-			end
-
 			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + @required_span + @description_span, { :class => 'better_field'})
 		end
 
@@ -33,10 +29,6 @@ module BetterForm
 				choices.insert(0, [@human_readable_method, nil])
 			end
 
-			if described_field?
-				@description_span = generate_description(@description) + tag('br')
-			end
-
 			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_select_tag(choices, options, html_options) + @required_span + @description_span, { :class => 'better_field'})
 		end
 
@@ -45,10 +37,6 @@ module BetterForm
 
 			if labelled_field?
 				@label_tag = generate_label(method, @human_readable_method)
-			end
-
-			if described_field?
-				@description_span = generate_description(@description)
 			end
 
 			content_tag_string(:p, InstanceTag.new(@object_name, method, self, options.delete(:object)).to_check_box_tag(options, checked_value, unchecked_value) + @label_tag + @required_span + @description_span, { :class => 'better_field'})
@@ -76,6 +64,10 @@ private
 			if required_field?
 				options[:class] = "#{options[:class]} better_required_field"
 				@required_span = generate_required_span + tag('br')
+			end
+
+			if described_field?
+				@description_span = generate_description(@description)
 			end
 		end
 
