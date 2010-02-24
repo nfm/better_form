@@ -10,7 +10,7 @@ module BetterForm
 			end
 
 			if labelled_field?
-				@label_tag = generate_label(method, @human_readable_method) + tag('br')
+				@label_tag = generate_label(method) + tag('br')
 			else
 				# Set the field's default value to blank
 				options[:value] = @human_readable_method
@@ -23,7 +23,7 @@ module BetterForm
 			setup_field(method, html_options)
 
 			if labelled_field?
-				@label_tag = generate_label(method, @human_readable_method) + tag('br')
+				@label_tag = generate_label(method) + tag('br')
 			else
 				# Add a disabled choice describing what the user is selecting
 				choices.insert(0, [@human_readable_method, nil])
@@ -36,7 +36,7 @@ module BetterForm
 			setup_field(method, options)
 
 			if labelled_field?
-				@label_tag = generate_label(method, @human_readable_method)
+				@label_tag = generate_label(method)
 			end
 
 			content_tag_string(:p, InstanceTag.new(@object_name, method, self, options.delete(:object)).to_check_box_tag(options, checked_value, unchecked_value) + @label_tag + @required_span + @description_span, { :class => 'better_field'})
@@ -56,7 +56,7 @@ private
 			@required_span = @label_tag = @description_span = ''
 			@required = options.delete(:required)
 			@validated = options.delete(:validated)
-			@labelled = options.delete(:labelled)
+			@label = options.delete(:labelled)
 			@description = options.delete(:description)
 			options[:class] ||= ''
 			options[:class] += " better_text_field"
@@ -81,7 +81,19 @@ private
 		end
 
 		def labelled_field?
-			true if (@labelled == true || (@labelled != false && @template.label_all?))
+			# If :labelled => true
+			if @label == true
+				@label = @human_readable_method
+				return true
+			# If options[:labelled] contained text for the label
+			elsif @label.blank? == false
+				return true
+			# If :label_all => true
+			elsif @template.label_all?
+				@label = @human_readable_method
+				return true
+			end
+			false
 		end
 
 		def described_field?
@@ -96,8 +108,8 @@ private
 			content_tag_string(:span, "*", { :class => 'better_required_field' })
 		end
 
-		def generate_label(method, name)
-			label(method, name, :class => 'better_label')
+		def generate_label(method)
+			label(method, @label, :class => 'better_label')
 		end
 
 		def generate_description(description)
