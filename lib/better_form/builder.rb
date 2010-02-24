@@ -6,7 +6,7 @@ module BetterForm
 			setup_field(method, options)
 
 			if validated_field?
-				options[:class] = "#{options[:class]} better_validated_field"
+				options[:class] += " better_validated_field"
 			end
 
 			if labelled_field?
@@ -58,11 +58,11 @@ private
 			@validated = options.delete(:validated)
 			@labelled = options.delete(:labelled)
 			@description = options.delete(:description)
-			options[:class] = "better_text_field #{options[:class]}"
+			options[:class] += " better_text_field"
 			options[:title] = @human_readable_method
 
 			if required_field?
-				options[:class] = "#{options[:class]} better_required_field"
+				options[:class] += " better_required_field"
 				@required_span = generate_required_span + tag('br')
 			end
 
