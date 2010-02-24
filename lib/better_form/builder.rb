@@ -5,11 +5,6 @@ module BetterForm
 		def text_field(method, options = {})
 			setup_field(method, options)
 
-			if required_field?
-				options[:class] = "#{options[:class]} better_required_field"
-				@required_span = generate_required_span
-			end
-
 			if validated_field?
 				options[:class] = "#{options[:class]} better_validated_field"
 			end
@@ -25,16 +20,11 @@ module BetterForm
 				@description_span = generate_description(@description) + tag('br')
 			end
 
-			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + @required_span + tag('br') + @description_span, { :class => 'better_field'})
+			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + @required_span + @description_span, { :class => 'better_field'})
 		end
 
 		def select(method, choices, options = {}, html_options = {})
 			setup_field(method, html_options)
-
-			if required_field?
-				html_options[:class] = "#{html_options[:class]} better_required_field"
-				@required_span = generate_required_span
-			end
 
 			if labelled_field?
 				@label_tag = generate_label(method, @human_readable_method) + tag('br')
@@ -47,16 +37,11 @@ module BetterForm
 				@description_span = generate_description(@description) + tag('br')
 			end
 
-			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_select_tag(choices, options, html_options) + @required_span + tag('br') + @description_span, { :class => 'better_field'})
+			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_select_tag(choices, options, html_options) + @required_span + @description_span, { :class => 'better_field'})
 		end
 
 		def check_box(method, options = {}, checked_value = "1", unchecked_value = "0") 
 			setup_field(method, options)
-
-			if required_field?
-				options[:class] = "#{options[:class]} better_required_field"
-				@required_span = generate_required_span
-			end
 
 			if labelled_field?
 				@label_tag = generate_label(method, @human_readable_method)
@@ -66,7 +51,7 @@ module BetterForm
 				@description_span = generate_description(@description)
 			end
 
-			content_tag_string(:p, InstanceTag.new(@object_name, method, self, options.delete(:object)).to_check_box_tag(options, checked_value, unchecked_value) + @label_tag + @required_span + tag('br') + @description_span, { :class => 'better_field'})
+			content_tag_string(:p, InstanceTag.new(@object_name, method, self, options.delete(:object)).to_check_box_tag(options, checked_value, unchecked_value) + @label_tag + @required_span + @description_span, { :class => 'better_field'})
 		end
 
 		def submit(value = '', options = {})
@@ -87,6 +72,11 @@ private
 			@description = options.delete(:description)
 			options[:class] = "better_text_field #{options[:class]}"
 			options[:title] = @human_readable_method
+
+			if required_field?
+				options[:class] = "#{options[:class]} better_required_field"
+				@required_span = generate_required_span + tag('br')
+			end
 		end
 
 		def required_field?
