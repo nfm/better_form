@@ -12,7 +12,7 @@ module BetterForm
 			if labelled_field?
 				@label_tag = generate_label(method) + tag('br')
 			else
-				# Set the field's default value to blank
+				# Set the field's default value
 				options[:value] = @human_readable_method
 			end
 
@@ -66,6 +66,23 @@ module BetterForm
 			end
 
 			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("password", options) + @required_span + @description_span, { :class => 'better_field'})
+		end
+
+		def text_area(method, options = {})
+			setup_field(method, options)
+
+			if validated_field?
+				options[:class] += " better_validated_field"
+			end
+
+			if labelled_field?
+				@label_tag = generate_label(method) + tag('br')
+			else
+				# Set the field's default value
+				options[:value] = @human_readable_method
+			end
+
+			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_text_area_tag(options) + @required_span + @description_span, { :class => 'better_field'})
 		end
 
 		def submit(value = '', options = {})
