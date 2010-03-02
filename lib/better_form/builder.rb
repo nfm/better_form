@@ -85,6 +85,17 @@ module BetterForm
 			generate_field { @label_tag + @instance_tag.to_text_area_tag(options) + @required_span + @description_span }
 		end
 
+		def file_field(method, options = {})
+			setup_field(method, options)
+
+			# Always generate a label for file fields unless explicitly told not to
+			unless @label == false
+				@label_tag = generate_label(method) + tag('br')
+			end
+
+			generate_field { @label_tag + @instance_tag.to_input_field_tag("file", options) + @required_span + @description_span }
+		end
+
 		def submit(value = '', options = {})
 			options[:disabled] = true unless options[:disabled] == false
 			if value.blank?
