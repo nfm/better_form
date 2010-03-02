@@ -4,20 +4,25 @@ puts "Generating #{path}"
 File.open("#{Rails.root}/#{path}", "w") do |file|
   file.print <<-EOS
 $(function() {
-  var initialValue = '';
-
   $('input.better_text_field, textarea.better_text_field').focus(function() {
-		// If this field is not already valid, store the initial value and clear the input
-		if (!$(this).hasClass('better_valid_field')) {
-			initialValue = this.value;
+		if (this.value == this.defaultValue) {
+      this.value = '';
+    }
+    /*
+		// If this field is marked for validation and is not already valid, clear the input
+		if ($(this).hasClass('better_validated_field') && !$(this).hasClass('better_valid_field')) {
 			this.value = '';
-		}
+    // If this field is not marked for validation and contains the default value
+		} else if (!$(this).hasClass('better_validated_field') && (this.value == this.defaultValue)) {
+      this.value = '';
+    }
+    */
   });
 
   $('input.better_text_field, textarea.better_text_field').blur(function() {
     // Restore the initial value if the field is required and no value was entered
     if ($(this).hasClass('better_required_field') && (this.value == '')) {
-      this.value = initialValue;
+      this.value = this.defaultValue;
     // Else mark the field as completed
     } else {
       $(this).addClass('better_completed_field');
