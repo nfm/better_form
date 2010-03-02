@@ -42,6 +42,17 @@ module BetterForm
 			content_tag_string(:p, InstanceTag.new(@object_name, method, self, options.delete(:object)).to_check_box_tag(options, checked_value, unchecked_value) + @label_tag + @required_span + @description_span, { :class => 'better_field'})
 		end
 
+		def radio_button(method, tag_value, options = {})
+			setup_field(method, options)
+
+			# Always generate a label for radio buttons unless explicitly told not to
+			unless @label == false
+				@label_tag = generate_label(tag_value)
+			end
+
+			content_tag_string(:p, InstanceTag.new(@object_name, method, self, options.delete(:object)).to_radio_button_tag(tag_value, options) + @label_tag + @required_span + @description_span, { :class => 'better_field'})
+		end
+
 		def submit(value = '', options = {})
 			options[:disabled] = true unless options[:disabled] == false
 			if value.blank?
