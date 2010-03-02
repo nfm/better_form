@@ -119,6 +119,8 @@ private
 			if required_field?
 				options[:class] += " better_required_field"
 				@required_span = generate_required_span + tag('br')
+			else
+				@required_span = tag('br')
 			end
 
 			if described_field?
