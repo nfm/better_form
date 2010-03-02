@@ -16,7 +16,7 @@ module BetterForm
 				options[:value] = @human_readable_method
 			end
 
-			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + @required_span + @description_span, { :class => 'better_field'})
+			generate_field { @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("text", options) + @required_span + @description_span }
 		end
 
 		def select(method, choices, options = {}, html_options = {})
@@ -29,7 +29,7 @@ module BetterForm
 				choices.insert(0, [@human_readable_method, nil])
 			end
 
-			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_select_tag(choices, options, html_options) + @required_span + @description_span, { :class => 'better_field'})
+			generate_field { @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_select_tag(choices, options, html_options) + @required_span + @description_span }
 		end
 
 		def check_box(method, options = {}, checked_value = "1", unchecked_value = "0") 
@@ -39,7 +39,7 @@ module BetterForm
 				@label_tag = generate_label(method)
 			end
 
-			content_tag_string(:p, InstanceTag.new(@object_name, method, self, options.delete(:object)).to_check_box_tag(options, checked_value, unchecked_value) + @label_tag + @required_span + @description_span, { :class => 'better_field'})
+			generate_field { InstanceTag.new(@object_name, method, self, options.delete(:object)).to_check_box_tag(options, checked_value, unchecked_value) + @label_tag + @required_span + @description_span }
 		end
 
 		def radio_button(method, tag_value, options = {})
@@ -50,7 +50,7 @@ module BetterForm
 				@label_tag = generate_label(tag_value)
 			end
 
-			content_tag_string(:p, InstanceTag.new(@object_name, method, self, options.delete(:object)).to_radio_button_tag(tag_value, options) + @label_tag + @required_span + @description_span, { :class => 'better_field'})
+			generate_field { InstanceTag.new(@object_name, method, self, options.delete(:object)).to_radio_button_tag(tag_value, options) + @label_tag + @required_span + @description_span }
 		end
 
 		def password_field(method, options = {})
@@ -65,7 +65,7 @@ module BetterForm
 				@label_tag = generate_label(method) + tag('br')
 			end
 
-			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("password", options) + @required_span + @description_span, { :class => 'better_field'})
+			generate_field { @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("password", options) + @required_span + @description_span }
 		end
 
 		def text_area(method, options = {})
@@ -82,7 +82,7 @@ module BetterForm
 				options[:value] = @human_readable_method
 			end
 
-			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_text_area_tag(options) + @required_span + @description_span, { :class => 'better_field'})
+			generate_field { @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_text_area_tag(options) + @required_span + @description_span }
 		end
 
 		def submit(value = '', options = {})
@@ -113,6 +113,11 @@ private
 			if described_field?
 				@description_span = generate_description(@description)
 			end
+		end
+
+		def generate_field
+			field_specific_output = yield
+			content_tag_string(:p, field_specific_output, { :class => 'better_field'})
 		end
 
 		def required_field?
