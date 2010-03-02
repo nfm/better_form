@@ -6,7 +6,7 @@ File.open("#{Rails.root}/#{path}", "w") do |file|
 $(function() {
   var initialValue = '';
 
-  $('input.better_text_field').focus(function() {
+  $('input.better_text_field, textarea.better_text_field').focus(function() {
 		// If this field is not already valid, store the initial value and clear the input
 		if (!$(this).hasClass('better_valid_field')) {
 			initialValue = this.value;
@@ -14,7 +14,7 @@ $(function() {
 		}
   });
 
-  $('input.better_text_field').blur(function() {
+  $('input.better_text_field, textarea.better_text_field').blur(function() {
     // Restore the initial value if the field is required and no value was entered
     if ($(this).hasClass('better_required_field') && (this.value == '')) {
       this.value = initialValue;
