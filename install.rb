@@ -46,7 +46,7 @@ function shake(id) {
 function checkFormIsCompleted(form) {
   var validForm = false;
   var form = "#" + form.id;
-  var validatedFields = $(form + ' > input.better_validated_field');
+  var validatedFields = $(form + ' input.better_validated_field');
   // For each validated field
   for (i = 0; i < validatedFields.length; i++) {
     // If any field is invalid, disable the form submit button
