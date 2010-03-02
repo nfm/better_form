@@ -2,6 +2,15 @@ module BetterForm
 	class Builder < ActionView::Helpers::FormBuilder
 		include ActionView::Helpers::TagHelper
 
+		cattr_accessor :require_all
+		self.require_all = false
+
+		cattr_accessor :validate_all
+		self.validate_all = false
+
+		cattr_accessor :label_all
+		self.label_all = false
+
 		def text_field(method, options = {})
 			setup_field(method, options)
 
@@ -136,11 +145,11 @@ private
 		end
 
 		def required_field?
-			true if (@required == true || (@required != false && @template.require_all?))
+			true if (@required == true || (@required != false && @template.require_all?) || (@required != false && @template.required_all != false && self.require_all))
 		end
 
 		def validated_field?
-			true if (@validated == true || (@validated != false && @template.validate_all?))
+			true if (@validated == true || (@validated != false && @template.validate_all?) || (@validated != false && @template.validate_all? != false && self.validate_all))
 		end
 
 		def labelled_field?
@@ -151,8 +160,7 @@ private
 			# If options[:labelled] contained text for the label
 			elsif @label.blank? == false
 				return true
-			# If :label_all => true
-			elsif @template.label_all?
+			elsif ((@label != false && @template.label_all?) || (@label != false && @template.label_all != false && self.label_all))
 				@label = @human_readable_method
 				return true
 			end
