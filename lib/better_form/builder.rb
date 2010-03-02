@@ -53,6 +53,21 @@ module BetterForm
 			content_tag_string(:p, InstanceTag.new(@object_name, method, self, options.delete(:object)).to_radio_button_tag(tag_value, options) + @label_tag + @required_span + @description_span, { :class => 'better_field'})
 		end
 
+		def password_field(method, options = {})
+			setup_field(method, options)
+
+			if validated_field?
+				options[:class] += " better_validated_field"
+			end
+
+			# Always generate a label for password fields unless explicitly told not to
+			unless @label == false
+				@label_tag = generate_label(method) + tag('br')
+			end
+
+			content_tag_string(:p, @label_tag + InstanceTag.new(@object_name, method, self, options.delete(:object)).to_input_field_tag("password", options) + @required_span + @description_span, { :class => 'better_field'})
+		end
+
 		def submit(value = '', options = {})
 			options[:disabled] = true unless options[:disabled] == false
 			if value.blank?
