@@ -19,12 +19,12 @@ module BetterForm
 							# If the model is valid on the given attribute
 							if model.to_s.camelize.constantize.better_valid_on?(params[model])
 								# Add an indicator that the input was valid
-								page << "$('##{params[:field_id]} ~ .better_required_field').after('<span class=\"better_valid_field\"></span>');"
+								page << "$('##{params[:field_id]} ~ br').before('<span class=\"better_valid_field\"></span>');"
 								page << "$('##{params[:field_id]}').removeClass('better_invalid_field');"
 								page << "$('##{params[:field_id]}').addClass('better_valid_field');"
 							else
 								# Add an indicator that the input was invalid
-								page << "$('##{params[:field_id]} ~ .better_required_field').after('<span class=\"better_invalid_field\"></span>');"
+								page << "$('##{params[:field_id]} ~ br').before('<span class=\"better_invalid_field\"></span>');"
 								page << "$('##{params[:field_id]}').removeClass('better_completed_field');"
 								page << "$('##{params[:field_id]}').removeClass('better_valid_field');"
 								page << "$('##{params[:field_id]}').addClass('better_invalid_field');"
