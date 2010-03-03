@@ -145,7 +145,7 @@ private
 		end
 
 		def required_field?
-			true if (@required == true || (@required != false && @template.require_all?) || (@required != false && @template.required_all != false && self.require_all))
+			true if (@required == true || (@required != false && @template.require_all?) || (@required != false && @template.require_all? != false && self.require_all))
 		end
 
 		def validated_field?
@@ -160,7 +160,7 @@ private
 			# If options[:labelled] contained text for the label
 			elsif @label.blank? == false
 				return true
-			elsif ((@label != false && @template.label_all?) || (@label != false && @template.label_all != false && self.label_all))
+			elsif ((@label != false && @template.label_all?) || (@label != false && @template.label_all? != false && self.label_all))
 				@label = @human_readable_method
 				return true
 			end
