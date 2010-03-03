@@ -26,6 +26,7 @@ module BetterForm
 								# Add an indicator that the input was invalid
 								page << "$('##{params[:field_id]} ~ .better_required_field').after('<span class=\"better_invalid_field\"></span>');"
 								page << "$('##{params[:field_id]}').removeClass('better_completed_field');"
+								page << "$('##{params[:field_id]}').removeClass('better_valid_field');"
 								page << "$('##{params[:field_id]}').addClass('better_invalid_field');"
 								page << "shake('#{params[:field_id]}');"
 							end
