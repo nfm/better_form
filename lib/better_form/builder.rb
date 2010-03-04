@@ -66,10 +66,11 @@ module BetterForm
 
 			# Always generate a label for password fields unless explicitly told not to
 			unless @label == false
-				@label_tag = generate_label(method) + tag('br')
+				@label_tag = generate_label(method)
+				generate_field { @label_tag + @required_span + @instance_tag.to_input_field_tag("password", options) + tag('br') + @description_span }
+			else
+				generate_field { @instance_tag.to_input_field_tag("password", options) + @required_span + @description_span }
 			end
-
-			generate_field { @label_tag + @instance_tag.to_input_field_tag("password", options) + @required_span + @description_span }
 		end
 
 		def text_area(method, options = {})
@@ -80,13 +81,13 @@ module BetterForm
 			end
 
 			if labelled_field?
-				@label_tag = generate_label(method) + tag('br')
+				@label_tag = generate_label(method)
+				generate_field { @label_tag + @required_span + @instance_tag.to_text_area_tag(options) + tag('br') + @description_span }
 			else
 				# Set the field's default value
 				options[:value] = @human_readable_method
+				generate_field { @instance_tag.to_text_area_tag(options) + @required_span + @description_span }
 			end
-
-			generate_field { @label_tag + @instance_tag.to_text_area_tag(options) + @required_span + @description_span }
 		end
 
 		def file_field(method, options = {})
