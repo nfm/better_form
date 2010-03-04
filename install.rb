@@ -5,24 +5,17 @@ File.open("#{Rails.root}/#{path}", "w") do |file|
   file.print <<-EOS
 $(function() {
   $('input.better_text_field, textarea.better_text_field').focus(function() {
+    // If this field contains the default value, clear the field
 		if (this.value == this.defaultValue) {
       this.value = '';
     }
-    /*
-		// If this field is marked for validation and is not already valid, clear the input
-		if ($(this).hasClass('better_validated_field') && !$(this).hasClass('better_valid_field')) {
-			this.value = '';
-    // If this field is not marked for validation and contains the default value
-		} else if (!$(this).hasClass('better_validated_field') && (this.value == this.defaultValue)) {
-      this.value = '';
-    }
-    */
   });
 
   $('input.better_text_field, textarea.better_text_field').blur(function() {
-    // Restore the initial value if the field is required and no value was entered
+    // If a required field is blank, restore its default value
     if ($(this).hasClass('better_required_field') && (this.value == '')) {
       this.value = this.defaultValue;
+      removeValidationOutput(this.id);
     // Else mark the field as completed
     } else {
       $(this).addClass('better_completed_field');
@@ -30,8 +23,11 @@ $(function() {
   });
 
   $('input.better_validated_field').blur(function() {
-    $.ajax({data:'authenticity_token=' + encodeURIComponent('iH4oAzNSO8OUiyFjVksfIdjEzmiWbL5BfM3mgp4rws4=')+ '&' + this.name + '=' + this.value + '&field_id=' + this.id, dataType:'script', type:'post', url: 'ajax_validate_' + this.id, async: false});
-    checkFormIsCompleted(this.form);
+    // If the field's value has been changed from the default value, validate it
+    if (this.value != this.defaultValue) {
+      $.ajax({data:'authenticity_token=' + encodeURIComponent('iH4oAzNSO8OUiyFjVksfIdjEzmiWbL5BfM3mgp4rws4=')+ '&' + this.name + '=' + this.value + '&field_id=' + this.id, dataType:'script', type:'post', url: 'ajax_validate_' + this.id, async: false});
+      checkFormIsCompleted(this.form);
+    }
   });
 
 });
@@ -66,6 +62,34 @@ function checkFormIsCompleted(form) {
   if (validForm == true) {
     $(form + ' :submit').enable();
   }
+}
+
+function removeValidationOutput(id) {
+  field = "#" + id;
+  $(field).removeClass('better_invalid_field');
+  $(field).removeClass('better_valid_field');
+  $(field).removeClass('better_completed_field');
+  $(field + " ~ .better_invalid_field").remove();
+  $(field + " ~ .better_valid_field").remove();
+}
+
+function markFieldValid(id) {
+  // Remove existing invalid/valid notifications
+  removeValidationOutput(id);
+
+  field = "#" + id;
+  $(field + ' ~ br').before('<span class="better_valid_field"></span>');
+  $(field).addClass('better_valid_field');
+}
+
+function markFieldInvalid(id) {
+  // Remove existing invalid/valid notifications
+  removeValidationOutput(id);
+
+  field = "#" + id;
+  $(field + ' ~ br').before('<span class="better_invalid_field"></span>');
+  $(field).addClass('better_invalid_field');
+  shake(id);
 }
 EOS
 end
