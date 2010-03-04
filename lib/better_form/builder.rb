@@ -150,18 +150,7 @@ private
 		end
 
 		def labelled_field?
-			# If :labelled => true
-			if @label == true
-				@label = @human_readable_method
-				return true
-			# If options[:labelled] contained text for the label
-			elsif @label.blank? == false
-				return true
-			elsif ((@label != false && @template.label_all?) || (@label != false && @template.label_all? != false && self.label_all))
-				@label = @human_readable_method
-				return true
-			end
-			false
+			true if (@label != false || (@label != false && @template.label_all?) || (@label != false && @template.label_all? != false && self.label_all))
 		end
 
 		def described_field?
@@ -177,7 +166,13 @@ private
 		end
 
 		def generate_label(method)
-			label(method, @label, :class => 'better_label')
+			# If :label => true, use @human_readable_method as the label text
+			if @label == true
+				label(method, @human_readable_method, :class => 'better_label')
+			# Else use @label's assigned value
+			else
+				label(method, @label, :class => 'better_label')
+			end
 		end
 
 		def generate_description(description)
