@@ -14,26 +14,26 @@ module BetterForm
 			end
 
 			if labelled_field?
-				@label_tag = generate_label(method) + tag('br')
+				@label_tag = generate_label(method)
+				generate_field { @label_tag + @required_span + @instance_tag.to_input_field_tag("text", options) + tag('br') + @description_span }
 			else
 				# Set the field's default value
 				options[:value] = @human_readable_method
+				generate_field { @instance_tag.to_input_field_tag("text", options) + @required_span + @description_span }
 			end
-
-			generate_field { @label_tag + @instance_tag.to_input_field_tag("text", options) + @required_span + @description_span }
 		end
 
 		def select(method, choices, options = {}, html_options = {})
 			setup_field(method, html_options)
 
 			if labelled_field?
-				@label_tag = generate_label(method) + tag('br')
+				@label_tag = generate_label(method)
+				generate_field { @label_tag + @required_span + @instance_tag.to_select_tag(choices, options, html_options) + tag('br') + @description_span }
 			else
 				# Add a disabled choice describing what the user is selecting
 				choices.insert(0, [@human_readable_method, nil])
+				generate_field { @instance_tag.to_select_tag(choices, options, html_options) + @required_span + @description_span }
 			end
-
-			generate_field { @label_tag + @instance_tag.to_select_tag(choices, options, html_options) + @required_span + @description_span }
 		end
 
 		def check_box(method, options = {}, checked_value = "1", unchecked_value = "0") 
@@ -94,10 +94,11 @@ module BetterForm
 
 			# Always generate a label for file fields unless explicitly told not to
 			unless @label == false
-				@label_tag = generate_label(method) + tag('br')
+				@label_tag = generate_label(method)
+				generate_field { @label_tag + @required_span + @instance_tag.to_input_field_tag("file", options) + tag('br') + @description_span }
+			else
+				generate_field { @instance_tag.to_input_field_tag("file", options) + @required_span + @description_span }
 			end
-
-			generate_field { @label_tag + @instance_tag.to_input_field_tag("file", options) + @required_span + @description_span }
 		end
 
 		def submit(value = '', options = {})
