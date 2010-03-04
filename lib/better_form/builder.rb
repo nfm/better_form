@@ -3,13 +3,8 @@ module BetterForm
 		include ActionView::Helpers::TagHelper
 
 		cattr_accessor :require_all
-		self.require_all = false
-
 		cattr_accessor :validate_all
-		self.validate_all = false
-
 		cattr_accessor :label_all
-		self.label_all = false
 
 		def text_field(method, options = {})
 			setup_field(method, options)

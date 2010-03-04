@@ -93,3 +93,14 @@ function markFieldInvalid(id) {
 }
 EOS
 end
+
+# Install better_form.rb to config/initializers/
+path = "config/initializers/better_form.rb"
+puts "Generating #{path}"
+File.open("#{Rails.root}/#{path}", "w") do |file|
+  file.print <<-EOS
+BetterForm::Builder.require_all = false
+BetterForm::Builder.validate_all = false
+BetterForm::Builder.label_all = false
+EOS
+end
