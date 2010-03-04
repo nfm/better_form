@@ -22,14 +22,13 @@ $(function() {
     }
   });
 
-  $('input.better_validated_field').blur(function() {
-    // If the field's value has been changed from the default value, validate it
-    if (this.value != this.defaultValue) {
-      $.ajax({data:'authenticity_token=' + encodeURIComponent('iH4oAzNSO8OUiyFjVksfIdjEzmiWbL5BfM3mgp4rws4=')+ '&' + this.name + '=' + this.value + '&field_id=' + this.id, dataType:'script', type:'post', url: 'ajax_validate_' + this.id, async: false});
-      checkFormIsCompleted(this.form);
-    }
-  });
-
+  $(':checkbox.better_validated_field').focus(validateField);
+  $(':radio.better_validated_field').focus(validateField);
+  $(':file.better_validated_field').change(validateField);
+  $('select.better_validated_field').change(validateField);
+  $(':password.better_validated_field').blur(validateField);
+  $(':text.better_validated_field').blur(validateField);
+  $('textarea.better_validated_field').blur(validateField);
 });
 
 function shake(id) {
@@ -42,6 +41,16 @@ function shake(id) {
   $(id).animate({'left': '-=6px'}, 60);
   $(id).animate({'left': '+=6px'}, 60);
   $(id).animate({'left': '0px'}, 30);
+}
+
+function validateField() {
+  // If the field is a text_field and its value has not been changed from the default value
+  if ($(this).is(':text, textarea') && (this.value == this.defaultValue)) {
+    return;
+  }
+
+  $.ajax({data:'authenticity_token=' + encodeURIComponent('iH4oAzNSO8OUiyFjVksfIdjEzmiWbL5BfM3mgp4rws4=')+ '&' + this.name + '=' + this.value + '&field_id=' + this.id, dataType:'script', type:'post', url: 'ajax_validate_' + this.id, async: false});
+  checkFormIsCompleted(this.form);
 }
 
 function checkFormIsCompleted(form) {
