@@ -9,10 +9,6 @@ module BetterForm
 		def text_field(method, options = {})
 			setup_field(method, options)
 
-			if validated_field?
-				options[:class] += " better_validated_field"
-			end
-
 			if labelled_field?
 				@label_tag = generate_label(method)
 				generate_field { @label_tag + @required_span + @instance_tag.to_input_field_tag("text", options) + tag('br') + @description_span }
@@ -60,10 +56,6 @@ module BetterForm
 		def password_field(method, options = {})
 			setup_field(method, options)
 
-			if validated_field?
-				options[:class] += " better_validated_field"
-			end
-
 			# Always generate a label for password fields unless explicitly told not to
 			unless @label == false
 				@label_tag = generate_label(method)
@@ -75,10 +67,6 @@ module BetterForm
 
 		def text_area(method, options = {})
 			setup_field(method, options)
-
-			if validated_field?
-				options[:class] += " better_validated_field"
-			end
 
 			if labelled_field?
 				@label_tag = generate_label(method)
@@ -127,6 +115,10 @@ private
 				@required_span = generate_required_span + tag('br')
 			else
 				@required_span = tag('br')
+			end
+
+			if validated_field?
+				options[:class] += " better_validated_field"
 			end
 
 			if described_field?
