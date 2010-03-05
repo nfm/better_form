@@ -5,5 +5,5 @@ install_file "style.css", :to => "public/stylesheets/better_form.css"
 
 def install_file(file, options = {})
 	puts "Generating #{options[:to]}"
-	File.copy("#{installed_files_dir}/#{file}", "#{Rails.root}/#{options[:to]}")
+	FileUtils.copy("#{installed_files_dir}/#{file}", "#{Rails.root}/#{options[:to]}")
 end
