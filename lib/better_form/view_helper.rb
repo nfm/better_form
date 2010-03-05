@@ -13,8 +13,7 @@ module BetterForm
 		end
 
 		def require_all?
-			@require_all
-		end
+			@require_all end
 
 		def validate_all?
 			@validate_all
@@ -28,27 +27,26 @@ module BetterForm
 			def better_form_stylesheet
 				css = content_tag('style', <<-EOT, :type => Mime::CSS)
 					input.better_text_field {
-						border-top: 1px solid #999;
-						border-left: 1px solid #999;
-						border-bottom: 1px solid #DDD;
-						border-right: 1px solid #DDD;
+						border-width: 1px;
+						border-style: solid;
+						border-color: #7c7c7c #c3c3c3 #ddd #c3c3c3;
 						color: #AAA;
+						margin: 0.35em 0;
 					}
 
 					input.better_completed_field {
-						border: 1px solid #666;
 						color: #333;
 					}
 
 					input.better_text_field:focus {
-						border: 1px solid #666;
 						color: #333;
-						background-color: #FDFFCF;
 					}
 
 					span.better_required_field {
 						color: #FF4F4F;
 						margin-left: 0.25em;
+						padding-top: 0.25em;
+						vertical-align: top;
 					}
 
 					span.better_valid_field, span.better_invalid_field {
@@ -56,6 +54,7 @@ module BetterForm
 						height: 16px;
 						width: 16px;
 						margin: 0 4px;
+						vertical-align: middle;
 					}
 
 					span.better_valid_field {
@@ -67,22 +66,61 @@ module BetterForm
 					}
 
 					input.better_valid_field {
-						border-color: #089F00;
-						color: #64BF5F;
+						color: #333;
 					}
 
-					input.better_invalid_field {
-						border-color: #CF0000;
-						color: #FF3F3F;
+					input.better_invalid_field, input.better_invalid_field:focus {
+						color: #CF0000;
 					}
 
 					label.better_label {
-						color: #666;
+						font-size: 0.9em;
+						font-family: sans-serif;
+						font-weight: bold;
+						color: #333;
 					}
 
 					span.better_described_field {
-						color: #999;
+						color: #666;
 						font-size: 0.7em;
+					}
+
+					p.better_field {
+						padding: 0.5em;
+						margin: 0 0 0.25em 0;
+						border: 1px solid transparent;
+					}
+
+					p.better_focused_field {
+						background-color: #fdffbf;
+						border: 1px solid #dbe3e6;
+					}
+
+					input[type='radio'].better_text_field, input[type='checkbox'].better_text_field {
+						margin-right: 0.5em;
+					}
+
+					textarea.better_text_field {
+						font-family: sans-serif;
+						color: #aaa;
+					}
+
+					textarea.better_text_field:focus {
+						color: #333;
+					}
+
+					fieldset {
+						border: none;
+						border-top: 1px solid #ccc;
+						padding-left: 2em;
+						margin: 0 2em 1em 2em;
+					}
+
+					legend {
+						font-family: sans-serif;
+						font-variant: small-caps;
+						margin-left: -1em;
+						padding: 0 0.5em;
 					}
 
 				EOT
