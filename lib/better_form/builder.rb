@@ -53,6 +53,22 @@ module BetterForm
 			generate_field { @instance_tag.to_radio_button_tag(tag_value, options) + @label_tag + @required_span + @description_span }
 		end
 
+		def radio_buttons(method, options = {}, html_options = {})
+			setup_field(method, html_options)
+
+			# Always generate a label for radio buttons unless explicitly told not to
+			unless @label == false
+				@label_tag = generate_label(method)
+			end
+
+			radio_buttons = ""
+			options.each do |option|
+				radio_buttons += @instance_tag.to_radio_button_tag(option, html_options) + label("#{method}_#{option}", generate_human_readable_method(option), :class => 'better_radio_button_label') + tag('br')
+			end
+
+			generate_field { @label_tag + @required_span + @description_span + tag('br') + radio_buttons }
+		end
+
 		def password_field(method, options = {})
 			setup_field(method, options)
 

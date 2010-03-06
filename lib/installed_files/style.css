@@ -45,11 +45,15 @@ input.better_invalid_field, input.better_invalid_field:focus {
 	color: #CF0000;
 }
 
-label.better_label {
+label.better_label, label.better_radio_button_label {
 	font-size: 0.9em;
 	font-family: sans-serif;
 	font-weight: bold;
 	color: #333;
+}
+
+label.better_radio_button_label {
+	font-weight: normal;
 }
 
 span.better_described_field {
