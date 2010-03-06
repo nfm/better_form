@@ -7,9 +7,24 @@ module BetterForm
 		end
 
 		module ClassMethods
-			def ajax_validates_for(model, *attributes)
-				# For each attribute to validate
-				attributes.each do |attribute|
+			def ajax_validates_for(model, options = {})
+				object = model.to_s.camelize.constantize.new
+				ajax_attributes = object.attributes.symbolize_keys.keys
+
+				# If :include => attributes = [] was passed as an argument
+				if included_attributes = options.delete(:include)
+					# Add each attribute in attributes to the array of ajax attributes
+					ajax_attributes.concat(included_attributes).uniq!
+				end
+
+				# If :exclude => attributes = [] was passed as an argument
+				if excluded_attributes = options.delete(:exclude)
+					# Remove each attribute in attributes from the array of ajax attributes
+					ajax_attributes -= excluded_attributes
+				end
+
+				# For each attribute to ajax validate
+				ajax_attributes.each do |attribute|
 					# Define a method 'ajax_validates_for_X'
 					define_method("ajax_validate_#{model}_#{attribute}") do
 						render :update do |page|
