@@ -8,18 +8,23 @@ module BetterForm
 
 		module ClassMethods
 			def ajax_validates_for(model, options = {})
-				object = model.to_s.camelize.constantize.new
-				ajax_attributes = object.attributes.symbolize_keys.keys
+				# Unless options[:include_default_attributes] was explicitly assigned => false
+				unless options.delete(:include_default_attributes) == false
+					object = model.to_s.camelize.constantize.new
+					ajax_attributes = object.attributes.symbolize_keys.keys
+				else
+					ajax_attributes = []
+				end
 
-				# If :include => attributes = [] was passed as an argument
+				# If :include => [attributes] was passed as an argument
 				if included_attributes = options.delete(:include)
-					# Add each attribute in attributes to the array of ajax attributes
+					# Add each included attribute to the array of ajax attributes
 					ajax_attributes.concat(included_attributes).uniq!
 				end
 
-				# If :exclude => attributes = [] was passed as an argument
+				# If :exclude => [attributes] was passed as an argument
 				if excluded_attributes = options.delete(:exclude)
-					# Remove each attribute in attributes from the array of ajax attributes
+					# Remove each excluded attribute from the array of ajax attributes
 					ajax_attributes -= excluded_attributes
 				end
 
