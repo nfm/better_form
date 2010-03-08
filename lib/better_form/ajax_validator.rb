@@ -10,7 +10,8 @@ module BetterForm
 			def ajax_validates_for(model, options = {})
 				# Unless options[:include_default_attributes] was explicitly assigned => false
 				unless options.delete(:include_default_attributes) == false
-					object = model.to_s.camelize.constantize.new
+					klass = model.to_s.camelize.constantize
+					object = klass.new
 					ajax_attributes = object.attributes.symbolize_keys.keys
 				else
 					ajax_attributes = []
@@ -34,7 +35,7 @@ module BetterForm
 					define_method("ajax_validate_#{model}_#{attribute}") do
 						render :update do |page|
 							# If the model is valid on the given attribute
-							if model.to_s.camelize.constantize.better_valid_on?(params[model])
+							if klass.better_valid_on?(params[model])
 								# Mark the field as valid
 								page << "markFieldValid('#{params[:field_id]}')"
 							else
