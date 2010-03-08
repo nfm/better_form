@@ -12,15 +12,15 @@ module BetterForm
 				object = self.new(attribute)
 				# If the object is valid, return true
 				if object.valid?
-					return true
+					return nil
 				else
 					# Pull out the object's @errors hash
 					errors = object.errors.instance_variable_get("@errors")
 					# If there was an error for this attribute, return false
 					if errors.include?(attribute.keys[0])
-						false
+						return errors[attribute.keys[0]]
 					else
-						true
+						return nil
 					end
 				end
 			end

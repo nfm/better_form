@@ -35,12 +35,12 @@ module BetterForm
 					define_method("ajax_validate_#{model}_#{attribute}") do
 						render :update do |page|
 							# If the model is valid on the given attribute
-							if klass.better_valid_on?(params[model])
+							if (errors = klass.better_valid_on?(params[model])).blank?
 								# Mark the field as valid
 								page << "markFieldValid('#{params[:field_id]}')"
 							else
 								# Mark the field as invalid
-								page << "markFieldInvalid('#{params[:field_id]}')"
+								page << "markFieldInvalid('#{params[:field_id]}', '#{errors[0].to_s}')"
 							end
 						end
 					end
