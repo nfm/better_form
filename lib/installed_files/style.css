@@ -98,3 +98,9 @@ legend {
 	margin-left: -1em;
 	padding: 0 0.5em;
 }
+
+span.better_error_message {
+  display: block;
+	color: #CF0000;
+	font-size: 0.7em;
+}
