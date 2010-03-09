@@ -45,6 +45,23 @@ module BetterForm
 						end
 					end
 				end
+
+				# Define another method ajax_validate_new_X to handle ajax form submission
+				define_method("ajax_validate_new_#{model}") do
+					object = klass.new(params[model])
+					errors = object.errors.instance_variable_get('@errors')
+					render :update do |page|
+						# If the all validations are passed
+						if errors.blank?
+							page << "validForm = true;"
+						else
+							# Mark each invalid field as invalid
+							errors.each do |error|
+								page << "markFieldInvalid('#{model}_#{error.instance_variable_get('@attribute')}', '#{error.to_s}')"
+							end
+						end
+					end
+				end
 			end
 		end
 	end
