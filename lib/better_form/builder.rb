@@ -107,7 +107,6 @@ module BetterForm
 		end
 
 		def submit(value = '', options = {})
-			options[:disabled] = true unless options[:disabled] == false
 			if value.blank?
 				value = (@object.new_record? ? "Create #{@object_name}" : "Save changes")
 			end
