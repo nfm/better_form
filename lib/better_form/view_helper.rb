@@ -2,6 +2,12 @@ module BetterForm
 	module ViewHelper
 		def better_form_for(record_or_name_or_array, *args, &proc)
 			options = args.extract_options!.reverse_merge(:builder => BetterForm::Builder)
+			if options[:html]
+				options[:html][:class] += " better_form"
+			else
+				options[:html] = {}
+				options[:html][:class] = "better_form"
+			end
 			@require_all = options[:require_all]
 			@require_all = nil if (@require_all != true && @require_all != false)
 			@validate_all = options[:validate_all]
