@@ -1,0 +1,101 @@
+form.better_form
+
+  input
+    &.better_text_field
+      border-width: 1px
+      border-style: solid
+      border-color: #7c7c7c #c3c3c3 #ddd #c3c3c3
+      color: #AAA
+      margin: 0.35em 0
+
+    &.better_completed_field, &.better_text_field:focus
+      color: #333
+
+  span
+    &.better_required_field
+      color: #FF4F4F
+      margin-left: 0.25em
+      padding-top: 0.25em
+      vertical-align: top
+
+    &.better_valid_field, &.better_invalid_field
+      display: inline-block
+      height: 24px
+      width: 24px
+      margin: 2px 4px
+      vertical-align: top
+
+    &.better_valid_field
+      background: 0 0 no-repeat url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABEhJREFUeNq0VWtoHFUU/u6dndlns83LIGpq1CIqhhYabBLEFsQWSgsi4gN/KJb+9ZeCD1DEX2KhIlX/Cj7QIobWgq0gUquCpS0UVAJtQyLNxmQ3m02yO7NzX547k0w3TdL0jxc+ZriP75zvnHPPZcYYMMaw3jh4mXu0/Bj99hEeJGQJ5wlTRuMsYVZrwMvH0BI42qOjs5Y7tR7xi6O8SMRvSoVDMCgSETjn4I4DKQWsT4wjBMOXhuFtfx4TIgTSm1fysLUUvPCXs5dIvyDSjvZiJzhzYLQhl+yJGIwzgkGlWrYsIa29phU+dAvAZ/eo9RU8e8l5RQgcTrtZJ18oQJJXltyYFq8iI4bUAG2FLkgderX52hGafVjWcLCVb4WBp847B0jmkU2FIlzHQxhEbkSem1bZLT/MYWTIw+bibShXpl+mjRO08u6qEB34w7kDGqOZTC6fy+RhVOx5rHWdRDEs5YLCRWqUkZirVe3+R4/vVGdXhKjp4z04yG9K5xFKXI/5zcZSTlikkpRwouMegkb4Ea1sTxTsveB2yAVMdXZ2uXbjLZEvjW+2laLvM5duJ3KbeKBcngHzMPTjTvE7t4t+DfvIa1coBqEMBJXkrWCZ3I6v+0uUbBOpF5LBr+LpJMl+A7vcjINQLXl+C95/v6O0ak7nOMS8huNlKUyN4cQAWexNGRdCsLhElgycemQy+u4/14dQNxOi5fnW8WSplxSwmANUgdq/085HIaLIpIVdtNJVLL+V5MTAWBKWtcj3T/XCX9SoV3S0x4ZJcSqZRIHBvAkV0iouOye/ujf9NDi5Zqj2XCPPFzRCIo+Ek4Gm1KA01BMFzQZGfSUi70PaoFyGXVfv2jAPu//pRaNGns/EngsZq1wMmpbnamKgMY4zqkAJsmGypssGzSbD8NiWdcmHx7fY6kNjxkTnQluBOobvCgQz7LfEwL+vi58pQmNzYT3xpD6lqBIMBq6sNjI0dh+RGyJXcczV9dz5SkJlmD93Qh1LDNCo1X/VRxuZgJLDqBpiI42SovAZbB+/OyEfGNuKhVoIv6ySopAW9E9HUOU1NP7WX9VH1OiN7bqr/Vj6OGtng51OF0zTJP0m1eOAZ1mUQF03kFUV/bfeF5ZiqLJZ6ECPL7wT7hPn9J8Rd+t74NzPh3KHvc9ZFn3d2W4oujQbXjo6yumCzcoKvWa6FnwsDoUj6ltb/asMWBt8G3/ce8t9nxVZf3uxHa50oX0qwdDEXi93UY/6ToaQY5iuTAMBJsWn4lV5Uo3Yull+cNZ60VzWxXak3nBfYg/w522HzeayyGZzcN24+SoKuh8EqC8uWoXSTJiT8gPxiRnVv3inM43wiQA3M7Cc/F48xPvZc6nd7F42iDa2la5lR2yBLtGiuYJr5oL5Tp02Z9RFmr3MT2VkdNf2bGwgUUPoIXQT2qImEw9LtECoEEr4IRMkT53FjQr+z/GfAAMA1LhhVWn7WtAAAAAASUVORK5CYII=)
+
+    &.better_invalid_field
+      background: 0 0 no-repeat url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA/BJREFUeNq0VU1oXFUU/t7PvDeZmcyUxrQjiVKxpqJRYgONLuLPQjdRGlw0RVdFal2JaHERUWpFwWJA6EZQXLirIuJKsf6AuBAVKljamrYJqRHjZEwzycy8uX/veu68l85MnMksghfOmzfv3Hu+c77zcy10Wfq7k8BvCx5c53VYeBRKX4GUJ5FLX8DYEMAloBRtbHN49DjcbgA4vwDN5RlLqUlks0ClMqqFetgqrB5A4fo17EgBoQHQbUHsrgBrlQmLsUmkegFJFpJpWELsFoyfwrk5Mh5GIghEUjSiSboB6LemHMnEDCwHCBhQrdEvSXYHEmE4hVJlFFeXiCIZiRAkvCHdAFQlOOIqsQ++R1wTAKdDjEfvxIfk/DR+/4M8Z5EIFhuP37cC0NOPZ8ijN+AnySB51jcIDI+T9zdF/9MZuEo+gHIwgQuLBCCiCIwTG0KrY5JlwJ4nZR420bPrNuDICcAifzhR9N5xoLxCp13IajDjzhe+RD6jYFkUdtiS8LYR6Bce2WlL/grSqYiOof2RcbM8iuiWOyMPfR9uKPeFQXAMF/9sUGWcMNIJQNXYCVuIFEIdGXK91g0m6SYXjIwRhVrwV7FYzGB1nb7Vou+sA4A+emCvLcVzyObihImoDJuXqXsR82xbcKTMh4y/jNm/ouQa7zsB8Bp705IyUTfAOgBI2Uio2ZNOG8CXsFQaQLEU0doOQD9194gn5SFksnE5xrIZwIyGui4GocQaSqn5XsPl5ch4rU2ZCs7e1TpsUCNjKf3TClBZi8uyyYlclppPPEPNdxcKFIXcFIGa3DNBRh+yUumG9yKu7e8/B64Xoo2LV4Bfvm3oboAIaBU6nPEZzK/coMiqU3Nw0FkX4a+pnp5hJ5WhMtb/nV2eD2vgduiFSy2UGQP2xsO2wYp1R8b93T0/4IPLUaOtV/nTpB52cj5NTk4TebPxJJzDL8K6dQj6i48Q/vhVa1GZjjVNZiqKIKuMn/aX1H31TtYH+73iqni7N5NBSGFuGG8GcA8dhf3Y4fq7s/ceqPM/Q68ut0Qh6eEQiNuTgipXRsoKUxngjK1C8WQgRF5T2zMqP0EiSVST6GxfE1oCYa6vRS/jc4xyUjO5SHhwlJyub1+x5P27bFVXdFrhZ+8jtf9B2H158LOfgF06t+UVknQcJHr1njrA3BqfH+u34WdpHARU36rNtVSYBY6NwVw6XnUdXmqLKe+TLihimYnZfkPfYBIDP407n96cxFi0wce2Fs0hHqL0zlX97PRF9bEV52jkw3vxxHAv7si62Lkd+9cCzJ+aw9mvi/iGyr1sNelMRFlTlNsLAWWSv81YM/1kmcf/uf4VYACZqkV9XEbbSAAAAABJRU5ErkJggg==)
+
+  input
+    &.better_valid_field
+      color: #333
+
+    &.better_invalid_field
+      color: #CF0000
+
+      &:focus
+        color: #CF0000
+
+  label
+    &.better_label
+      font-size: 0.9em
+      font-family: sans-serif
+      font-weight: bold
+      color: #333
+
+    &.better_radio_button_label
+      font-size: 0.9em
+      font-family: sans-serif
+      font-weight: bold
+      color: #333
+      font-weight: normal
+
+  span.better_described_field
+    color: #666
+    font-size: 0.7em
+
+  p
+    &.better_field
+      padding: 0.5em
+      margin: 0 0 0.25em 0
+      border: 1px solid transparent
+
+    &.better_focused_field
+      background-color: #fdffbf
+      border: 1px solid #dbe3e6
+
+  input
+    &[type='radio'].better_text_field, &[type='checkbox'].better_text_field
+      margin-right: 0.5em
+
+  textarea.better_text_field
+    font-family: sans-serif
+    color: #aaa
+
+    &:focus
+      color: #333
+
+  fieldset
+    border: none
+    border-top: 1px solid #ccc
+    padding-left: 2em
+    margin: 0 2em 1em 2em
+
+  legend
+    font-family: sans-serif
+    font-variant: small-caps
+    margin-left: -1em
+    padding: 0 0.5em
+
+  span.better_error_message
+    display: block
+    color: #CF0000
+    font-size: 0.7em
+
+  select, option
+    padding: 0.25em 0.25em 0 0.25em
