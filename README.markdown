@@ -33,15 +33,12 @@ Installation
 
 		script/plugin install git://github.com/nfm/better_form.git
 
-3. Include `public/javascripts/better_form.js` after jQuery and jRails:
-
-		<%= javascript_include_tag 'jquery', 'jrails', 'better_form' %>
-
-4. Include `public/stylesheets/better_form.css` in your default layout:
+3. Include `better_form.css` and `better_form.js` (after jQuery and jRails) in `app/views/layouts/default.html.erb`:
 
 		<%= stylesheet_link_tag 'better_form' %>
+		<%= javascript_include_tag 'jquery', 'jrails', 'better_form' %>
 
-5. Restart WEBrick and you're ready for better forms!
+4. Restart WEBrick and you're ready for better forms!
 
 
 Usage
@@ -56,9 +53,8 @@ Usage
 		  ...
 		end
 
-2. Ensure the default `:controller/:action/:id` routes exist in `config/routes` for your AJAX validation methods:
+2. Ensure the default `:controller/:action/:id` routes exist at the bottom of `config/routes` for your AJAX validation methods:
 
-		# Keep these at the end of the config/routes file:
 		map.connect ':controller/:action/:id'
 		map.connect ':controller/:action/:id.:format'
 
@@ -66,9 +62,7 @@ Usage
 
 		<% better_form_for @user do |f| %>
 		  ...
-
-		<form id="new_user" class="better_form" method="post" action="/users">
-		  ...
+		<% end %>
 
 4. Generate fields with labels, descriptions, validation and 'required field' indicators using the regular form field methods:
 
@@ -86,6 +80,10 @@ Usage
 		<p class="better_field">
 		  <input id="user_last_name" class="better_text_field" value="Last name" name="user[last_name]" type="text" size="30" />
 		</p>
+
+Sit back and watch as `:validated => true` fields are automatically AJAX validated using your validation rules defined in your models.
+
+Marvel at the beautiful form fields generated from single lines of code.
 
 Arguments and Configuration
 ---------------------------
