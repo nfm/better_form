@@ -25,8 +25,7 @@ Links
 Installation
 ------------
 
-1. **Prerequisites**
-   Install [jRails](http://github.com/aaronchi/jrails):
+1. **Prerequisite:** Install [jRails](http://github.com/aaronchi/jrails):
 
 		script/plugin install git://github/com/aaronchi/jrails
 
