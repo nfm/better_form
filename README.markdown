@@ -1,39 +1,59 @@
-Better Form
-===========
+Better Form README
+==================
 
-A Rails plugin to build nicer forms. Better Form currently handles:
+A Rails 2.3.x plugin to build Wufoo style forms. Better Form currently handles:
 
 * AJAX validation of form fields as they are completed
-* Enabling/disabling the form's submit button if the form is valid/invalid
+* Well-placed validation output
 * Automatic label generation
+* Field descriptions
 
-Better Form requires jQuery 1.4 and jRails.
+Forget about labels, wrapper paragraphs, and `f.error_messages` and enjoy *interactive* forms with code less in your views.
+
+Better Form requires [jQuery 1.4](http://jquery.com/) and [jRails](http://github.com/aaronchi/jrails).
+
+
+Links
+-----
+
+* Source code: [http://github.com/nfm/better_form](http://github.com/nfm/better_form)
+* Bug/Feature tracking: [http://nfmconsulting.lighthouseapp.com/projects/48493-better-form](http://nfmconsulting.lighthouseapp.com/projects/48493-better-form)
+* Online documentation: [http://rdoc.info/projects/nfm/better_form](http://rdoc.info/projects/nfm/better_form)
 
 
 Install
 -------
 
+1. Install Better Form from github:
+
 	script/plugin install git://github.com/nfm/better_form.git
 
-(Don't forget to restart WEBrick if necessary)
+2. Include `public/javascripts/better_form.js` after jQuery and jRails:
+
+	<%= javascript_include_tag 'jquery', 'jrails', 'better_form' %>
+
+3. Include `public/stylesheets/better_form.css` in your default layout:
+
+	<%= stylesheet_link_tag 'better_form' %>
+
+4. (Optional) Configure default settings in `config/initializers/better_form.rb` and customize the CSS in `public/stylesheets/better_form.css`.
+
+5. Restart WEBrick and you're ready for better forms!
+
 
 Usage
 -----
 
-Include `public/javascripts/better_form.js` after jQuery and jRails:
+1. Handle AJAX validation in your controllers by calling `ajax_validates_for`:
 
-	<%= javascript_include_tag 'jquery', 'jrails', 'better_form' %>
-
-Add methods to your controllers to handle AJAX validation:
-
-	ajax_validates_for :model, :attribute, [:attribute] ...
+	ajax_validates_for :model
 
 	class UsersController < ApplicationController
-	  ajax_validates_for :user, :first_name, :last_name
+	  ajax_validates_for :user
 	  ...
 	end
 
-Add named routes in `config/routes` for your AJAX validation methods, or keep the default `:controller/:action/:id` routes:
+2. Add named routes in `config/routes` for your AJAX validation methods (or keep the default `:controller/:action/:id` routes):
 
 	map.resources :user, :collection => { :ajax_validate_user_first_name => :post, :ajax_validate_user_last_name => :post, ... }
 
@@ -41,12 +61,37 @@ Add named routes in `config/routes` for your AJAX validation methods, or keep th
 	map.connect ':controller/:action/:id'
 	map.connect ':controller/:action/:id.:format'
 
+3. Generate a better form by calling `better_form_for`:
 
-You can then generate a better form using the `better_form_for` method:
+	<% better_form_for @user do |f| %>
+	  ...
+	<% end %>
+	
+	<form id="new_user" class="better_form" method="post" action="/users">
+	  ...
+	</form>
 
-	<% better_form_for @project do |f| %>
+4. Generate fields with labels, descriptions, validation and 'required field' indicators using the regular form field methods:
 
-Form fields have a `<br />` appended after them. They can be `:validated`, `:labelled` and `:required`. Fields without labels have their initial `value` set to the method they are associated with.
+	<%= f.text_field :first_name, :validated => true, :description => 'Display name used throughout site', :required => true %>
+
+	<p class="better_field">
+	  <input id="user_first_name" class="better_text_field better_validated_field" name="user[first_name]" type="text" size="30" />
+	  <span class="better_required_field">*</span>
+	  <br />
+	  <span class="better_described_field">Display name used throughout site</span>
+	</p>
+
+	<%= f.text_field :last_name %>
+
+	<p class="better_field">
+	  <input id="user_last_name" class="better_text_field" value="Last name" name="user[last_name]" type="text" size="30" />
+	</p>
+
+Arguments and Configuration
+---------------------------
+
+Form fields can be `:validated`, `:labelled`, `:described` and `:required`. Fields without labels have their initial `value` set to the method they are associated with.
 
 * A validated field has the class `better_validated_field` added to its list of class names:
 
@@ -67,19 +112,6 @@ Form fields have a `<br />` appended after them. They can be `:validated`, `:lab
 Alternatively, you can pass `:validate_all`, `:label_all` and `:require_all` as options to `better_form_for` to apply the given options to every field.
 
 The javascript file `better_form.js` watches validated fields and calls their (generated) controller method to validate them when they are changed. This method returns an inline notification of the validity of the field.
-
-If you like, you can restyle the default CSS by overriding the following selectors in your own stylesheet:
-
-	input.better_text_field
-	input.better_text_field:focus
-	input.better_completed
-	span.better_required_field
-	span.better_valid_field
-	span.better_invalid_field
-	input.better_valid_field
-	input.better_invalid_field
-	label.better_label
-	span.better_described_field
 
 You can inspect the default styling in `vendor/plugins/better_form/lib/better_form/view_helper.rb`.
 (The images used in `span.better_valid_field` and `span.better_invalid_field` are base64 encoded in their `background` declaration)
