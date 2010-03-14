@@ -1,14 +1,17 @@
-Better Form README
+Better Form Readme
 ==================
 
-A Rails 2.3.x plugin to build Wufoo style forms. Better Form currently handles:
+A Rails 2.3.x plugin to build DRY Wufoo style forms with AJAX validation.
 
-* AJAX validation of form fields as they are completed
+* AJAX validates form fields as they are completed
 * Well-placed validation output
 * Automatic label generation
-* Field descriptions
+* Form field descriptions
+* Sensible default form styling
+* Unobtrusive Javascript contained in a single external file
+* Options configurable at the application, form, and field level
 
-Forget about labels, wrapper paragraphs, and `f.error_messages` and enjoy *interactive* forms with code less in your views.
+Forget about labels, wrapper paragraphs, and cleaning up the `f.error_messages` output and enjoy *interactive* forms with far less code in your views.
 
 Better Form requires [jQuery 1.4](http://jquery.com/) and [jRails](http://github.com/aaronchi/jrails).
 
@@ -16,9 +19,9 @@ Better Form requires [jQuery 1.4](http://jquery.com/) and [jRails](http://github
 Links
 -----
 
+* Online documentation: [http://rdoc.info/projects/nfm/better_form](http://rdoc.info/projects/nfm/better_form)
 * Source code: [http://github.com/nfm/better_form](http://github.com/nfm/better_form)
 * Bug/Feature tracking: [http://nfmconsulting.lighthouseapp.com/projects/48493-better-form](http://nfmconsulting.lighthouseapp.com/projects/48493-better-form)
-* Online documentation: [http://rdoc.info/projects/nfm/better_form](http://rdoc.info/projects/nfm/better_form)
 
 
 Install
@@ -26,15 +29,15 @@ Install
 
 1. Install Better Form from github:
 
-	script/plugin install git://github.com/nfm/better_form.git
+		script/plugin install git://github.com/nfm/better_form.git
 
 2. Include `public/javascripts/better_form.js` after jQuery and jRails:
 
-	<%= javascript_include_tag 'jquery', 'jrails', 'better_form' %>
+		<%= javascript_include_tag 'jquery', 'jrails', 'better_form' %>
 
 3. Include `public/stylesheets/better_form.css` in your default layout:
 
-	<%= stylesheet_link_tag 'better_form' %>
+		<%= stylesheet_link_tag 'better_form' %>
 
 4. (Optional) Configure default settings in `config/initializers/better_form.rb` and customize the CSS in `public/stylesheets/better_form.css`.
 
@@ -46,47 +49,47 @@ Usage
 
 1. Handle AJAX validation in your controllers by calling `ajax_validates_for`:
 
-	ajax_validates_for :model
+		ajax_validates_for :model
 
-	class UsersController < ApplicationController
-	  ajax_validates_for :user
-	  ...
-	end
+		class UsersController < ApplicationController
+		  ajax_validates_for :user
+		  ...
+		end
 
 2. Add named routes in `config/routes` for your AJAX validation methods (or keep the default `:controller/:action/:id` routes):
 
-	map.resources :user, :collection => { :ajax_validate_user_first_name => :post, :ajax_validate_user_last_name => :post, ... }
+		map.resources :user, :collection => { :ajax_validate_user_first_name => :post, :ajax_validate_user_last_name => :post, ... }
 
-	# Or just keep these at the end of the file:
-	map.connect ':controller/:action/:id'
-	map.connect ':controller/:action/:id.:format'
+		# Or just keep these at the end of the file:
+		map.connect ':controller/:action/:id'
+		map.connect ':controller/:action/:id.:format'
 
 3. Generate a better form by calling `better_form_for`:
 
-	<% better_form_for @user do |f| %>
-	  ...
-	<% end %>
-	
-	<form id="new_user" class="better_form" method="post" action="/users">
-	  ...
-	</form>
+		<% better_form_for @user do |f| %>
+		  ...
+		<% end %>
+
+		<form id="new_user" class="better_form" method="post" action="/users">
+		  ...
+		</form>
 
 4. Generate fields with labels, descriptions, validation and 'required field' indicators using the regular form field methods:
 
-	<%= f.text_field :first_name, :validated => true, :description => 'Display name used throughout site', :required => true %>
+		<%= f.text_field :first_name, :validated => true, :description => 'Display name used throughout site', :required => true %>
 
-	<p class="better_field">
-	  <input id="user_first_name" class="better_text_field better_validated_field" name="user[first_name]" type="text" size="30" />
-	  <span class="better_required_field">*</span>
-	  <br />
-	  <span class="better_described_field">Display name used throughout site</span>
-	</p>
+		<p class="better_field">
+		  <input id="user_first_name" class="better_text_field better_validated_field" name="user[first_name]" type="text" size="30" />
+		  <span class="better_required_field">*</span>
+		  <br />
+		  <span class="better_described_field">Display name used throughout site</span>
+		</p>
 
-	<%= f.text_field :last_name %>
+		<%= f.text_field :last_name %>
 
-	<p class="better_field">
-	  <input id="user_last_name" class="better_text_field" value="Last name" name="user[last_name]" type="text" size="30" />
-	</p>
+		<p class="better_field">
+		  <input id="user_last_name" class="better_text_field" value="Last name" name="user[last_name]" type="text" size="30" />
+		</p>
 
 Arguments and Configuration
 ---------------------------
