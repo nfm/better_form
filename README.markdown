@@ -13,8 +13,6 @@ A Rails 2.3.x plugin to build DRY Wufoo style forms with AJAX validation.
 
 Forget about labels, wrapper paragraphs, and cleaning up the `f.error_messages` output and enjoy *interactive* forms with far less code in your views.
 
-Better Form requires [jQuery 1.4](http://jquery.com/) and [jRails](http://github.com/aaronchi/jrails).
-
 
 Links
 -----
@@ -27,19 +25,22 @@ Links
 Installation
 ------------
 
-1. Install Better Form from github:
+1. **Prerequisites**
+   Install [jRails](http://github.com/aaronchi/jrails):
+
+		script/plugin install git://github/com/aaronchi/jrails
+
+2. Install the Better Form plugin from github:
 
 		script/plugin install git://github.com/nfm/better_form.git
 
-2. Include `public/javascripts/better_form.js` after jQuery and jRails:
+3. Include `public/javascripts/better_form.js` after jQuery and jRails:
 
 		<%= javascript_include_tag 'jquery', 'jrails', 'better_form' %>
 
-3. Include `public/stylesheets/better_form.css` in your default layout:
+4. Include `public/stylesheets/better_form.css` in your default layout:
 
 		<%= stylesheet_link_tag 'better_form' %>
-
-4. (Optional) Configure default settings in `config/initializers/better_form.rb` and customize the CSS in `public/stylesheets/better_form.css`.
 
 5. Restart WEBrick and you're ready for better forms!
 
@@ -56,11 +57,9 @@ Usage
 		  ...
 		end
 
-2. Add named routes in `config/routes` for your AJAX validation methods (or keep the default `:controller/:action/:id` routes):
+2. Ensure the default `:controller/:action/:id` routes exist in `config/routes` for your AJAX validation methods:
 
-		map.resources :user, :collection => { :ajax_validate_user_first_name => :post, :ajax_validate_user_last_name => :post, ... }
-
-		# Or just keep these at the end of the file:
+		# Keep these at the end of the config/routes file:
 		map.connect ':controller/:action/:id'
 		map.connect ':controller/:action/:id.:format'
 
@@ -68,11 +67,9 @@ Usage
 
 		<% better_form_for @user do |f| %>
 		  ...
-		<% end %>
 
 		<form id="new_user" class="better_form" method="post" action="/users">
 		  ...
-		</form>
 
 4. Generate fields with labels, descriptions, validation and 'required field' indicators using the regular form field methods:
 
