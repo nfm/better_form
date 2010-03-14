@@ -24,8 +24,8 @@ Links
 * Bug/Feature tracking: [http://nfmconsulting.lighthouseapp.com/projects/48493-better-form](http://nfmconsulting.lighthouseapp.com/projects/48493-better-form)
 
 
-Install
--------
+Installation
+------------
 
 1. Install Better Form from github:
 
@@ -122,10 +122,11 @@ You can inspect the default styling in `vendor/plugins/better_form/lib/better_fo
 Credits
 ------
 
+If you use this plugin in an app that's made you money, please [buy me a beer](http://pledgie.com/campaigns/9414)!
+
+Copyright (c) 2010 Nicholas Firth-McCoy, released under the MIT license
+
 This plugin borrows code and ideas from:
 
 * Ryan Bates' [nested_form plugin](http://github.com/ryanb/nested_form) (and of course his excellent Railscasts)
 * jbasdf's [validate_attributes plugin](http://github.com/jbasdf/validate_attributes)
-
-
-Copyright (c) 2010 Nicholas Firth-McCoy, released under the MIT license
