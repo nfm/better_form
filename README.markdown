@@ -27,7 +27,7 @@ Installation
 
 1. **Prerequisite:** Install [jRails](http://github.com/aaronchi/jrails):
 
-		script/plugin install git://github/com/aaronchi/jrails
+		script/plugin install git://github.com/aaronchi/jrails
 
 2. Install the Better Form plugin from github:
 
