@@ -1,8 +1,8 @@
-install_file "better_form.js", :to => "public/javascripts/better_form.js"
-install_file "better_form_initializer.rb", :to => "config/initializers/better_form.rb"
-install_file "style.css", :to => "public/stylesheets/better_form.css"
+puts "Copying files..."
 
-def install_file(file, options = {})
-	puts "Generating #{options[:to]}"
-	FileUtils.copy("#{RAILS_ROOT}/vendor/plugins/better_form/lib/installed_files/#{file}", "#{RAILS_ROOT}/#{options[:to]}")
-end
+src_dir = File.join(File.dirname(__FILE__), "lib", "installed_files")
+FileUtils.copy(File.join(src_dir, "better_form_initializer.rb", "#{RAILS_ROOT}/config/initializers/better_form_initializer.rb")
+FileUtils.copy(File.join(src_dir, "better_form.js", "#{RAILS_ROOT}/public/javascripts/better_form.js")
+FileUtils.copy(File.join(src_dir, "better_form.css", "#{RAILS_ROOT}/public/stylesheets/better_form.css")
+
+puts "Files copied - Installation complete!"
