@@ -31,7 +31,7 @@ Installation
 
 2. Install the Better Form plugin from github:
 
-		script/plugin install git://github.com/nfm/better_form.git
+		script/plugin install git://github.com/nfm/better_form
 
 3. Include `better_form.css` and `better_form.js` (after jQuery and jRails) in `app/views/layouts/default.html.erb`:
 
