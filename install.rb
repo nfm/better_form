@@ -1,5 +1,5 @@
+puts installed_files_dir = "#{RAILS_ROOT}/vendor/plugins/better_form/lib/installed_files"
 =begin
-installed_files_dir = "#{RAILS_ROOT}/vendor/plugins/better_form/lib/installed_files"
 install_file "better_form.js", :to => "public/javascripts/better_form.js"
 install_file "better_form_initializer.rb", :to => "config/initializers/better_form.rb"
 install_file "style.css", :to => "public/stylesheets/better_form.css"
