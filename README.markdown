@@ -19,7 +19,7 @@ Links
 
 * Online documentation: [http://rdoc.info/projects/nfm/better_form](http://rdoc.info/projects/nfm/better_form)
 * Source code: [http://github.com/nfm/better_form](http://github.com/nfm/better_form)
-* Bug/Feature tracking: [http://nfmconsulting.lighthouseapp.com/projects/48493-better-form](http://nfmconsulting.lighthouseapp.com/projects/48493-better-form)
+* Bug/Feature tracking: http://github.com/nfm/better_form/issues
 
 
 Installation
