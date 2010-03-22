@@ -121,9 +121,11 @@ private
 			@validated = options.delete(:validated)
 			@label = options.delete(:label)
 			@description = options.delete(:description)
+
 			options[:class] ||= ''
 			options[:class] += " better_text_field"
 			options[:title] = @human_readable_method
+			options = objectify_options(options)
 
 			if required_field?
 				options[:class] += " better_required_field"
