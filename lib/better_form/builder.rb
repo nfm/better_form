@@ -159,7 +159,8 @@ private
 		end
 
 		def labelled_field?
-			true if (@label != false || (@label != false && @template.label_all?) || (@label != false && @template.label_all? != false && self.label_all))
+			# True if the field option :label => true or :label => 'text' or the form or application level option :label_all is true
+			true if ((@label == true) || (@label.is_a? String) || (@label != false && @template.label_all?) || (@label != false && @template.label_all? != false && self.label_all))
 		end
 
 		def described_field?
