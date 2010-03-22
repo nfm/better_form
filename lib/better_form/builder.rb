@@ -125,7 +125,6 @@ private
 			options[:class] ||= ''
 			options[:class] += " better_text_field"
 			options[:title] = @human_readable_method
-			options = objectify_options(options)
 
 			if required_field?
 				options[:class] += " better_required_field"
@@ -141,6 +140,8 @@ private
 			if described_field?
 				@description_span = generate_description(@description)
 			end
+
+			options = objectify_options(options)
 
 			@instance_tag = InstanceTag.new(@object_name, method, self, options.delete(:object))
 		end
