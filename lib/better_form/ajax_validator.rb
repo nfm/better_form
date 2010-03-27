@@ -40,7 +40,7 @@ module BetterForm
 								page << "markFieldValid('#{params[:field_id]}')"
 							else
 								# Mark the field as invalid
-								page << "markFieldInvalid('#{params[:field_id]}', '#{errors[0].to_s}')"
+								page << "markFieldInvalid('#{params[:field_id]}', '#{escape_javascript(errors[0].to_s)}')"
 							end
 						end
 					end
