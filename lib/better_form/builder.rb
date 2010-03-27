@@ -13,8 +13,8 @@ module BetterForm
 				@label_tag = generate_label(method)
 				generate_field { @label_tag + @required_span + @instance_tag.to_input_field_tag("text", options) + tag('br') + @description_span }
 			else
-				# Set the field's default value
-				options[:value] = @human_readable_method
+				# Set the field's default value if @object is a new empty record
+				options[:value] = @human_readable_method if @object.new_record?
 				generate_field { @instance_tag.to_input_field_tag("text", options) + @required_span + @description_span }
 			end
 		end
@@ -88,8 +88,8 @@ module BetterForm
 				@label_tag = generate_label(method)
 				generate_field { @label_tag + @required_span + @instance_tag.to_text_area_tag(options) + tag('br') + @description_span }
 			else
-				# Set the field's default value
-				options[:value] = @human_readable_method
+				# Set the field's default value if @object is a new empty record
+				options[:value] = @human_readable_method if @object.new_record?
 				generate_field { @instance_tag.to_text_area_tag(options) + @required_span + @description_span }
 			end
 		end
