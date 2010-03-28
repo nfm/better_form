@@ -47,7 +47,7 @@ module BetterForm
 				end
 
 				# Define another method ajax_validate_new_X to handle ajax form submission
-				define_method("ajax_validate_new_#{model}") do
+				define_method("ajax_validate") do
 					object = klass.new(params[model])
 					render :update do |page|
 						# If the all validations are passed
