@@ -2,7 +2,7 @@ module BetterForm
 	module ViewHelper
 		def better_form_for(record_or_name_or_array, *args, &proc)
 			options = args.extract_options!.reverse_merge(:builder => BetterForm::Builder)
-			if options[:html]
+			if options[:html] && options[:html][:class]
 				options[:html][:class] += " better_form"
 			else
 				options[:html] = {}
