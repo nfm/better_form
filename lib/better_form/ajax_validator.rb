@@ -40,7 +40,7 @@ module BetterForm
 				nested_attributes_models = object.nested_attributes_options.keys
 				nested_attributes_models.each do |nested_model|
 					# Initialize an object of this nested_model
-					klass = nested_model.to_s.camelize.constantize
+					klass = nested_model.to_s.singularize.camelize.constantize
 					object = klass.new
 
 					# Extract the object's attributes
