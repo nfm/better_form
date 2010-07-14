@@ -40,7 +40,9 @@ module BetterForm
 				nested_attributes_models = object.nested_attributes_options.keys
 				nested_attributes_models.each do |nested_model|
 					# Initialize an object of this nested_model
-					klass = nested_model.to_s.singularize.camelize.constantize
+					# We call .pluralize.singularize to make sure we get the singular form from both the
+					# plural (in the case of a has_many association) and the singular (has_one association)
+					klass = nested_model.to_s.pluralize.singularize.camelize.constantize
 					object = klass.new
 
 					# Extract the object's attributes
