@@ -2,6 +2,7 @@
 remove_file "public/javascripts/better_form.js"
 remove_file "public/stylesheets/better_form.css"
 remove_file "config/initializers/better_form_initializer.rb"
+remove_file "app/controllers/better_ajax_validation_controller.rb"
 
 def remove_file(file)
 	puts "Removing #{file}"
