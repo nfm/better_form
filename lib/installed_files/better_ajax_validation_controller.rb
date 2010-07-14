@@ -1,0 +1,2 @@
+class BetterAjaxValidationController < ApplicationController
+end
