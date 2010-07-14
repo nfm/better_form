@@ -2,15 +2,15 @@ form.better_form input.better_text_field, form.better_form textarea.better_text_
   font-family: sans-serif;
   border-width: 1px;
   border-style: solid;
-  border-color: #7c7c7c #c3c3c3 #ddd #c3c3c3;
-  color: #aaa;
+  border-color: #7c7c7c #c3c3c3 #dddddd #c3c3c3;
+  color: #aaaaaa;
   margin: 0.35em 0;
 }
 form.better_form input.better_completed_field, form.better_form input.better_text_field:focus, form.better_form textarea.better_completed_field, form.better_form textarea.better_text_field:focus {
-  color: #333;
+  color: #333333;
 }
 form.better_form input.better_valid_field, form.better_form input.better_invalid_field, form.better_form textarea.better_valid_field, form.better_form textarea.better_invalid_field {
-  color: #333;
+  color: #333333;
 }
 form.better_form textarea.better_text_field {
   font-size: 0.85em;
@@ -38,17 +38,21 @@ form.better_form label.better_label {
   font-size: 0.9em;
   font-family: sans-serif;
   font-weight: bold;
-  color: #333;
+  color: #333333;
+  display: inline;
+  padding: 0;
 }
 form.better_form label.better_radio_button_label {
   font-size: 0.9em;
   font-family: sans-serif;
   font-weight: bold;
-  color: #333;
+  color: #333333;
   font-weight: normal;
+  display: inline;
+  padding: 0;
 }
 form.better_form span.better_described_field {
-  color: #666;
+  color: #666666;
   font-size: 0.7em;
 }
 form.better_form p.better_field {
@@ -65,7 +69,7 @@ form.better_form input[type='radio'].better_text_field, form.better_form input[t
 }
 form.better_form fieldset {
   border: none;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
   padding-left: 2em;
   margin: 0 2em 1em 2em;
 }
