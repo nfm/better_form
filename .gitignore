@@ -1,2 +1,3 @@
 todo
-lib/installed_files/.sass-cache
+.sass-cache
+lib/installed_files/better_form.sass
