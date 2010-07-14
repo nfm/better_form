@@ -44,12 +44,11 @@ Installation
 Usage
 -----
 
-1. Handle AJAX validation in your controllers by calling `ajax_validates_for`:
+1. Add AJAX validation by calling `ajax_validates_for :model` in your `BetterAjaxValidationController`:
 
-		ajax_validates_for :model
-
-		class UsersController < ApplicationController
+		class BetterAjaxValidationController < ApplicationController
 		  ajax_validates_for :user
+		  ajax_validates_for :address
 		  ...
 		end
 
