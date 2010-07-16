@@ -141,6 +141,10 @@ private
 				@description_span = generate_description(@description)
 			end
 
+			# Set a custom HTML5 data- attribute to store the ajax validation URL associated with this form field
+			object = ActionController::RecordIdentifier.singular_class_name(@object)
+			options['data-ajax-validation-url'] = "/better_ajax_validation/ajax_validate_#{object}_#{method}"
+
 			options = objectify_options(options)
 
 			@instance_tag = InstanceTag.new(@object_name, method, self, options.delete(:object))
