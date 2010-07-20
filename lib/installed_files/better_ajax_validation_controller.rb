@@ -2,7 +2,7 @@ class BetterAjaxValidationController < ApplicationController
 	def ajax_validate_attribute
 		model = params[:model]
 		klass = model.to_s.camelize.constantize
-		object = klass.new(params[:attribute])
+		object = klass.new(params[model])
 
 		render :update do |page|
 			# If the model is valid on the given attribute
