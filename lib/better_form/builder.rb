@@ -148,7 +148,7 @@ private
 			# 2. The model associated with this form field
 			# 2. The model's attribute associated with this form field
 			object = ActionController::RecordIdentifier.singular_class_name(@object)
-			options['data-ajax-validation-url'] = "/better_ajax_validation/ajax_validate_#{object}_#{method}"
+			options['data-ajax-validation-url'] = "/better_ajax_validation/ajax_validate_attribute"
 			options['data-model-name'] = object
 			options['data-attribute-name'] = method
 
