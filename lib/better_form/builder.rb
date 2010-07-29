@@ -15,6 +15,7 @@ module BetterForm
 			else
 				# Set the field's default value if @object is a new empty record
 				options[:value] = @human_readable_method if @object.new_record?
+				options[:placeholder] = @human_readable_method if @object.new_record?
 				generate_field { @instance_tag.to_input_field_tag("text", options) + @required_span + @description_span }
 			end
 		end
@@ -90,6 +91,7 @@ module BetterForm
 			else
 				# Set the field's default value if @object is a new empty record
 				options[:value] = @human_readable_method if @object.new_record?
+				options[:placeholder] = @human_readable_method if @object.new_record?
 				generate_field { @instance_tag.to_text_area_tag(options) + @required_span + @description_span }
 			end
 		end
@@ -125,6 +127,7 @@ private
 			options[:class] ||= ''
 			options[:class] += " better_text_field"
 			options[:title] = @human_readable_method
+			options['data-default-value'] = @human_readable_method
 
 			if required_field?
 				options[:class] += " better_required_field"
@@ -146,7 +149,7 @@ private
 			# 2. The model associated with this form field
 			# 2. The model's attribute associated with this form field
 			object = ActionController::RecordIdentifier.singular_class_name(@object)
-			options['data-ajax-validation-url'] = "/better_ajax_validation/ajax_validate_#{object}_#{method}"
+			options['data-ajax-validation-url'] = "/better_ajax_validation/ajax_validate_attribute"
 			options['data-model-name'] = object
 			options['data-attribute-name'] = method
 
