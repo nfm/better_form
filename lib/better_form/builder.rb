@@ -127,6 +127,7 @@ private
 			options[:class] ||= ''
 			options[:class] += " better_text_field"
 			options[:title] = @human_readable_method
+			options['data-default-value'] = @human_readable_method
 
 			if required_field?
 				options[:class] += " better_required_field"
