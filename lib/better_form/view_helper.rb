@@ -5,9 +5,22 @@ module BetterForm
 			if options[:html] && options[:html][:class]
 				options[:html][:class] += " better_form"
 			else
-				options[:html] = {}
+				options[:html] ||= {}
 				options[:html][:class] = "better_form"
 			end
+
+			case record_or_name_or_array
+			when String, Symbol
+				object_name = record_or_name_or_array
+			when Array
+				object = record_or_name_or_array.last
+				object_name = ActionController::RecordIdentifier.singular_class_name(object)
+			else
+				object = record_or_name_or_array
+				object_name = ActionController::RecordIdentifier.singular_class_name(object)
+			end
+			options[:html]['data-model-name'] = object_name
+
 			@require_all = options[:require_all]
 			@require_all = nil if (@require_all != true && @require_all != false)
 			@validate_all = options[:validate_all]
