@@ -19,7 +19,7 @@ class BetterAjaxValidationController < ApplicationController
 	def ajax_validate_model
 		model = params[:model]
 		klass = model.to_s.camelize.constantize
-		object = model.new(params[model])
+		object = klass.new(params[model])
 
 		render :update do |page|
 			# If the all validations are passed
