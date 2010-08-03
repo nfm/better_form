@@ -24,8 +24,6 @@ class BetterAjaxValidationController < ApplicationController
 		# Pull out the object's @errors hash
 		errors = object.errors.instance_variable_get("@errors")
 
-		debugger
-
 		invalid = false
 		params[model].each do |attribute|
 			if errors.include?(attribute[0])
