@@ -19,19 +19,30 @@ class BetterAjaxValidationController < ApplicationController
 	def ajax_validate_model
 		model = params[:model]
 		klass = model.to_s.camelize.constantize
-		object = model.new(params[model])
+		object = klass.new(params[model])
+
+		# Pull out the object's @errors hash
+		errors = object.errors.instance_variable_get("@errors")
+
+		debugger
+
+		invalid = false
+		params[model].each do |attribute|
+			if errors.include?(attribute[0])
+				invalid = true
+			end
+		end
 
 		render :update do |page|
 			# If the all validations are passed
-			if object.valid?
-				page << "validForm = true;"
-			else
-				errors = object.errors.instance_variable_get('@errors')
+			if invalid
 				page << "validForm = false;"
 				# Mark each invalid field as invalid
 				errors.each do |attr, error|
 					page << "markFieldInvalid('#{model}_#{error[0].instance_variable_get('@attribute')}', '#{escape_javascript(error[0].to_s)}');"
 				end
+			else
+				page << "validForm = true;"
 			end
 		end
 	end
